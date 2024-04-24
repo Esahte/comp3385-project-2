@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cars extends Model
+class Favourites extends Model
 {
     use HasFactory;
 
@@ -15,15 +15,7 @@ class Cars extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'description',
-        'make',
-        'model',
-        'color',
-        'year',
-        'transmission',
-        'car_type',
-        'price',
-        'photo',
+        'car_id',
         'user_id',
     ];
 }
