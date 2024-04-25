@@ -22,7 +22,8 @@ class CarsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param CarsRequest $request
+     * @param  CarsRequest  $request
+     *
      * @return JsonResponse
      */
     public function store(CarsRequest $request): JsonResponse
@@ -36,16 +37,35 @@ class CarsController extends Controller
 
         return response()->json([
             'message' => 'Car created successfully',
-            'car' => $car
+            'car'     => $car
         ]);
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param int $car
+     * @return JsonResponse
      */
-    public function show(int $car_id)
+    public function show($car): JsonResponse
     {
-        return response()->json(['car' => Cars::findOrFail($car_id)]);
+        return response()->json(['car' => Cars::findOrFail($car)]);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function searchMakesAndModels(Request $request): JsonResponse
+    {
+        $query = $request->input('query');
+
+        $makes  = Cars::where('make', 'like', "%{$query}%")->pluck('make');
+        $models = Cars::where('model', 'like', "%{$query}%")->pluck('model');
+
+        return response()->json(['suggestions' => $makes->concat($models)->unique()]);
     }
 
     /**

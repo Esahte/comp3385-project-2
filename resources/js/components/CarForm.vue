@@ -21,7 +21,7 @@ const saveCar = async () => {
         </h1>
         <div class="card">
             <div class="card-body">
-                <form>
+                <form id="carForm" @submit.prevent="saveCar" method="post" action="/api/v1/cars">
                     <div class="row">
                         <div class="col-md-6">
                             <label for="make" class="form-label">Make</label>
