@@ -2,56 +2,54 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CarsRequest;
-use App\Models\Cars;
+use App\Http\Requests\AuthRequest;
+use App\Models\Users;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CarsController extends Controller
+class AuthController extends Controller
 {
     /**
      * Display a listing of the resource.
-     *
-     * @return JsonResponse
      */
-    public function index(): JsonResponse
+    public function login()
     {
-        return response()->json(['cars' => Cars::all()]);
+        //
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param CarsRequest $request
+     * @param AuthRequest $request
      * @return JsonResponse
      */
-    public function store(CarsRequest $request): JsonResponse
+    public function register(AuthRequest $request): JsonResponse
     {
         $request->validated();
 
         $photo = $request->file('photo')->storeAs('images',
             $request->file('photo')->getClientOriginalName(), 'public');
 
-        $car = Cars::create(array_merge($request->all(), ['photo' => $photo]));
+        $user = Users::create(array_merge($request->all(), ['photo' => $photo]));
 
         return response()->json([
-            'message' => 'Car created successfully',
-            'car' => $car
+            'message' => 'User created successfully',
+            'user' => $user
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(int $car_id)
+    public function show(Users $users)
     {
-        return response()->json(['car' => Cars::findOrFail($car_id)]);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, CarsController $cars)
+    public function update(Request $request, Users $users)
     {
         //
     }
@@ -59,7 +57,7 @@ class CarsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CarsController $cars)
+    public function destroy(Users $users)
     {
         //
     }

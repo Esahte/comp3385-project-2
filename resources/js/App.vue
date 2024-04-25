@@ -18,6 +18,5 @@ body {
 
 .container {
     max-width: 800px;
-    padding-top: 20px;
 }
 </style>
