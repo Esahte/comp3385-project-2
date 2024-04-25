@@ -30,11 +30,10 @@ class AuthController extends Controller
         $photo = $request->file('photo')->storeAs('images',
             $request->file('photo')->getClientOriginalName(), 'public');
 
-        $user = Users::create(array_merge($request->all(), ['photo' => $photo]));
+        Users::create(array_merge($request->all(), ['photo' => $photo]));
 
         return response()->json([
             'message' => 'User created successfully',
-            'user' => $user
         ]);
     }
 
