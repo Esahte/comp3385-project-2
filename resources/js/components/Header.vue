@@ -23,6 +23,9 @@
                     <li class="nav-item">
                         <RouterLink class="nav-link" :class="{ active: $route.path === '/explore'}" to="/explore">Explore</RouterLink>
                     </li>
+                    <li class="nav-item">
+                        <RouterLink class="nav-link" :class="{ active: $route.path === '/register'}" to="/register">Register</RouterLink>
+                    </li>
                 </ul>
             </div>
         </div>
