@@ -4,7 +4,7 @@ const saveCar = async () => {
 
     const response = await fetch('/api/v1/cars', {
         method: 'POST',
-        headers: { 'Accept': 'application/json', },
+        headers: {'Accept': 'application/json',},
         body: formData
     });
 
@@ -15,64 +15,97 @@ const saveCar = async () => {
 </script>
 
 <template>
-    <div class="container mt-5">
-        <h2>Add New Car</h2>
-        <form id="carForm" @submit.prevent="saveCar" action="/api/v1/cars" method="post">
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="make">Make</label>
-                    <input type="text" class="form-control" id="make" placeholder="Tesla">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="model">Model</label>
-                    <input type="text" class="form-control" id="model" placeholder="Model S">
-                </div>
+    <div class="container">
+        <h1>
+            Add New Car
+        </h1>
+        <div class="card">
+            <div class="card-body">
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="make" class="form-label">Make</label>
+                            <input type="text" class="form-control" id="make" placeholder="Tesla">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="model" class="form-label">Model</label>
+                            <input type="text" class="form-control" id="model" placeholder="Model S">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="colour" class="form-label">Colour</label>
+                            <input type="text" class="form-control" id="colour" placeholder="Red">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="year" class="form-label">Year</label>
+                            <input type="text" class="form-control" id="year" placeholder="2018">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="price" class="form-label">Price</label>
+                            <input type="text" class="form-control" id="price" placeholder="62888">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="carType" class="form-label">Car Type</label>
+                            <select id="carType" class="form-select">
+                                <option selected>SUV</option>
+                                <option>Sedan</option>
+                                <option>Coupe</option>
+                                <option>Convertible</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="transmission" class="form-label">Transmission</label>
+                            <select id="transmission" class="form-select">
+                                <option selected>Automatic</option>
+                                <option>Manual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea class="form-control" id="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="uploadPhoto" class="form-label browse-btn">Upload Photo</label>
+                        <input class="form-control" type="file" id="uploadPhoto">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-25">Save</button>
+                </form>
             </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="colour">Colour</label>
-                    <input type="text" class="form-control" id="colour" placeholder="Red">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="year">Year</label>
-                    <input type="text" class="form-control" id="year" placeholder="2018">
-                </div>
-            </div>
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="price">Price</label>
-                    <input type="text" class="form-control" id="price" placeholder="62888">
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="carType">Car Type</label>
-                    <select id="carType" class="form-control">
-                        <option selected>SUV</option>
-                        <option>Sedan</option>
-                        <option>Coupe</option>
-                        <option>Convertible</option>
-                    </select>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="transmission">Transmission</label>
-                <select id="transmission" class="form-control">
-                    <option selected>Automatic</option>
-                    <option>Manual</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="3"></textarea>
-            </div>
-            <div class="form-group">
-                <label for="uploadPhoto">Upload Photo</label>
-                <input type="file" class="form-control-file" id="uploadPhoto">
-            </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-        </form>
+        </div>
     </div>
 </template>
 
 <style scoped>
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
+.btn-primary {
+    background-color: #198754;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #157347;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    margin-bottom: 1rem;
+}
+
+.form-control::file-selector-button {
+    margin-right: 0.5rem;
+}
+
+.browse-btn {
+    font-size: 0.875rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
 </style>

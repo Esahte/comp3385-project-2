@@ -12,5 +12,12 @@ import Footer from "./components/Footer.vue";
 </template>
 
 <style scoped>
+body {
+    background-color: #f5f5f5;
+}
 
+.container {
+    max-width: 800px;
+    padding-top: 20px;
+}
 </style>
