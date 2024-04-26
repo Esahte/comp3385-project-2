@@ -1,5 +1,6 @@
 <script setup>
 import { useRouter } from "vue-router";
+import { useUserStore } from "../store/userStore.js";
 
 const router = useRouter();
 
@@ -13,6 +14,7 @@ const register = async () => {
     });
 
     const data = await response.json();
+    useUserStore().setUserId(data.user);
     console.log(data.message);
     await router.push('/');
 }

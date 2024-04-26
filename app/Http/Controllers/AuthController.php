@@ -18,7 +18,7 @@ class AuthController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * store a newly created resource in storage.
      *
      * @param AuthRequest $request
      * @return JsonResponse
@@ -30,10 +30,11 @@ class AuthController extends Controller
         $photo = $request->file('photo')->storeAs('images',
             $request->file('photo')->getClientOriginalName(), 'public');
 
-        Users::create(array_merge($request->all(), ['photo' => $photo]));
+        $user = Users::create(array_merge($request->all(), ['photo' => $photo]));
 
         return response()->json([
             'message' => 'User created successfully',
+            'userId' => $user->id,
         ]);
     }
 

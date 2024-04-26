@@ -20,7 +20,7 @@ class CarsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * store a newly created resource in storage.
      *
      * @param  CarsRequest  $request
      *
@@ -44,7 +44,7 @@ class CarsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param int $car
+     * @param $car
      * @return JsonResponse
      */
     public function show($car): JsonResponse

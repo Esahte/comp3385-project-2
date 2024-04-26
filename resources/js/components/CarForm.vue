@@ -1,6 +1,10 @@
 <script setup>
+import { useUserStore } from "../store/userStore.js";
+
 const saveCar = async () => {
     const formData = new FormData(document.getElementById('carForm'));
+
+    formData.append('userId', useUserStore().userId);
 
     const response = await fetch('/api/v1/cars', {
         method: 'POST',
