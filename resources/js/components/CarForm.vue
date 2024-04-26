@@ -4,7 +4,7 @@ import { useUserStore } from "../store/userStore.js";
 const saveCar = async () => {
     const formData = new FormData(document.getElementById('carForm'));
 
-    formData.append('userId', useUserStore().userId);
+    formData.append('user_id', useUserStore().userId);
 
     const response = await fetch('/api/v1/cars', {
         method: 'POST',
@@ -29,27 +29,27 @@ const saveCar = async () => {
                     <div class="row">
                         <div class="col-md-6">
                             <label for="make" class="form-label">Make</label>
-                            <input type="text" class="form-control" id="make" placeholder="Tesla">
+                            <input name="make" type="text" class="form-control" id="make" placeholder="Tesla">
                         </div>
                         <div class="col-md-6">
                             <label for="model" class="form-label">Model</label>
-                            <input type="text" class="form-control" id="model" placeholder="Model S">
+                            <input name="model" type="text" class="form-control" id="model" placeholder="Model S">
                         </div>
                         <div class="col-md-6">
                             <label for="colour" class="form-label">Colour</label>
-                            <input type="text" class="form-control" id="colour" placeholder="Red">
+                            <input name="color" type="text" class="form-control" id="colour" placeholder="Red">
                         </div>
                         <div class="col-md-6">
                             <label for="year" class="form-label">Year</label>
-                            <input type="text" class="form-control" id="year" placeholder="2018">
+                            <input name="year" type="text" class="form-control" id="year" placeholder="2018">
                         </div>
                         <div class="col-md-6">
                             <label for="price" class="form-label">Price</label>
-                            <input type="text" class="form-control" id="price" placeholder="62888">
+                            <input name="price" type="text" class="form-control" id="price" placeholder="62888">
                         </div>
                         <div class="col-md-6">
                             <label for="carType" class="form-label">Car Type</label>
-                            <select id="carType" class="form-select">
+                            <select name="car_type" id="carType" class="form-select">
                                 <option selected>SUV</option>
                                 <option>Sedan</option>
                                 <option>Coupe</option>
@@ -58,7 +58,7 @@ const saveCar = async () => {
                         </div>
                         <div class="col-md-6">
                             <label for="transmission" class="form-label">Transmission</label>
-                            <select id="transmission" class="form-select">
+                            <select name="transmission" id="transmission" class="form-select">
                                 <option selected>Automatic</option>
                                 <option>Manual</option>
                             </select>
@@ -66,11 +66,11 @@ const saveCar = async () => {
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea class="form-control" id="description" rows="3"></textarea>
+                        <textarea name="description" class="form-control" id="description" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="uploadPhoto" class="form-label browse-btn">Upload Photo</label>
-                        <input class="form-control" type="file" id="uploadPhoto">
+                        <input name="photo" class="form-control" type="file" id="uploadPhoto">
                     </div>
                     <button type="submit" class="btn btn-primary w-25">Save</button>
                 </form>

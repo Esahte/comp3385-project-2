@@ -4,6 +4,7 @@ import {ref} from "vue";
 let model = ref("");
 let make = ref("");
 let suggestions = ref([]);
+const emit = defineEmits(['search-complete']);
 
 const searchMakesAndModels = async (query) => {
     const response = await fetch(`/v1/cars/search?query=${query}`, {

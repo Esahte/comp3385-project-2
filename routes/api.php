@@ -12,11 +12,12 @@ Route::get('/user', fn(Request $request) => $request->user())->middleware('auth:
 Route::get('/v1/cars', [CarsController::class, 'index']);
 Route::post('/v1/cars', [CarsController::class, 'store']);
 Route::get('/v1/cars/{id}', [CarsController::class, 'show']);
+Route::post('/v1/cars/{id}/favourites', [CarsController::class, 'favourite']);
 Route::get('/v1/cars/search', [CarsController::class, 'searchMakesAndModels']);
 
 Route::post('/v1/auth/register', [AuthController::class, 'register']);
 
-Route::get('/v1/users/{id}', [UsersController::class, 'details']);
+//Route::get('/v1/users/{id}', [UsersController::class, 'details']);
 Route::get('/v1/users/{id}/favourites', [UsersController::class, 'favourites']);
 
 Route::get('v1/search', [SearchController::class, 'search']);

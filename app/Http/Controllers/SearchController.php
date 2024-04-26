@@ -11,7 +11,8 @@ class SearchController extends Controller
     /**
      * Handle the incoming request.
      *
-     * @param Request $request
+     * @param  Request  $request
+     *
      * @return JsonResponse
      */
     public function search(Request $request): JsonResponse
@@ -19,7 +20,7 @@ class SearchController extends Controller
         $make  = $request->input('make');
         $model = $request->input('model');
 
-                // Start a query
+        // Start a query
         $query = Cars::query();
 
         // If a make is provided, add a where clause for the make
