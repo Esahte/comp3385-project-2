@@ -1,7 +1,9 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import Search from "../components/Search.vue";
+import { useUserStore } from "../store/userStore.js";
 
+console.log(useUserStore().userId)
 const cars = ref([]);
 
 onMounted(async () => {
@@ -10,6 +12,7 @@ onMounted(async () => {
             method: "GET",
             headers: {
                 Accept: "application/json",
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
         });
         const data = await response.json();

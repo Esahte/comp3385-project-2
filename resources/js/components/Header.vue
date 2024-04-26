@@ -1,18 +1,17 @@
 <script setup>
-import {onMounted, ref} from "vue";
-import { useUserStore } from "../store/userStore.js";
+import {useUserStore} from "../store/userStore.js";
+import {useRouter} from "vue-router";
 
-const isLoggedIn = ref(false);
+const router = useRouter();
 
-onMounted(() => {
-    if (localStorage.getItem('token')) {
-        isLoggedIn.value = true;
-    }
-});
+
+defineProps(['isLoggedIn']);
+
+const emit = defineEmits(['isLoggedOut']);
 
 const logout = async () => {
     try {
-        const response = await fetch('/api/v1/logout', {
+        const response = await fetch('/api/v1/auth/logout', {
             method: 'POST',
             headers: {'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Accept': 'application/json'}
         });
@@ -20,7 +19,8 @@ const logout = async () => {
         console.log(data);
         localStorage.removeItem('token');
         useUserStore().setUserId(null);
-        isLoggedIn.value = false;
+        emit('isLoggedOut', true);
+        await router.push('/');
     } catch (error) {
         console.error(error);
     }
@@ -62,7 +62,7 @@ const logout = async () => {
                     <li class="nav-item" v-if="!isLoggedIn">
                         <RouterLink class="nav-link" to="/login">Login</RouterLink>
                     </li>
-                    <li class="nav-item" v-if="isLoggedIn">
+                    <li class="nav-item" v-else>
                         <button class="nav-link btn btn-link" @click="logout">Logout</button>
                     </li>
                 </ul>

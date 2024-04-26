@@ -10,14 +10,14 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', fn(Request $request) => $request->user())->middleware('auth:sanctum');
 
 Route::get('/v1/cars', [CarsController::class, 'index'])->middleware('auth:api');
-Route::post('/v1/cars', [CarsController::class, 'store']);
+Route::post('/v1/cars', [CarsController::class, 'store'])->middleware('auth:api');
 Route::get('/v1/cars/{id}', [CarsController::class, 'show'])->middleware('auth:api');
-Route::post('/v1/cars/{id}/favourites', [CarsController::class, 'favourite']);
+Route::post('/v1/cars/{id}/favourites', [CarsController::class, 'favourite'])->middleware('auth:api');
 Route::get('/v1/cars/search', [CarsController::class, 'searchMakesAndModels'])->middleware('auth:api');
 
 Route::post('/v1/auth/register', [AuthController::class, 'register']);
 Route::post('/v1/auth/login', [AuthController::class, 'login']);
-Route::post('/v1/auth/logout', [AuthController::class, 'logout'])->middleware('auth:api');
+Route::post('/v1/auth/logout', [AuthController::class, 'logout']);
 
 //Route::get('/v1/users/{id}', [UsersController::class, 'details']);
 Route::get('/v1/users/{id}/favourites', [UsersController::class, 'favourites'])->middleware('auth:api');

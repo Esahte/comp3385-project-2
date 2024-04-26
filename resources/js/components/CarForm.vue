@@ -2,7 +2,9 @@
 import { useUserStore } from "../store/userStore.js";
 import { useRouter } from "vue-router";
 
+console.log(useUserStore().userId);
 const router = useRouter();
+
 const saveCar = async () => {
     const formData = new FormData(document.getElementById('carForm'));
 

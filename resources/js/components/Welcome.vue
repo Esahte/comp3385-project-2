@@ -22,8 +22,8 @@ onUnmounted(() => {
                             <p class="lead my-4">United Auto Sales provides the fastest, easiest and most user friendly way
                                 to buy or sell cars online. Find a Great Price on the Vehicle You Want</p>
                             <div class="register-login-buttons">
-                                <a href="#" class="btn btn-primary btn-lg me-2">Register</a>
-                                <a href="#" class="btn btn-success btn-lg">Login</a>
+                                <a href="/register" class="btn btn-primary btn-lg me-2">Register</a>
+                                <a href="/login" class="btn btn-success btn-lg">Login</a>
                             </div>
                         </div>
                     </div>
@@ -38,7 +38,7 @@ onUnmounted(() => {
     flex: 1;
     background-color: white;
     width: 50%;
-    height: 100vh;
+    height: 94.5vh;
 }
 
 .hero-section {
