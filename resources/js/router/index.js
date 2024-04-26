@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 import HomeView from "../views/HomeView.vue";
 import AboutView from "../views/AboutView.vue";
 import AddCarView from "../views/AddCarView.vue";
@@ -6,6 +6,7 @@ import Explore from "../views/Explore.vue";
 import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import Header from "../components/Header.vue";
+import CarDetailsView from "../views/CarDetailsView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -17,32 +18,39 @@ const router = createRouter({
         {
             path: '/about',
             component: AboutView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/cars/new',
             component: AddCarView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/explore',
             component: Explore,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/register',
             component: RegisterView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/login',
             component: LoginView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/logout',
             component: Header,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
+        },
+        {
+            path: '/cars/:car_id',
+            name: 'CarDetailsView',
+            component: CarDetailsView,
+            props: true,
+            meta: {showFooter: true}
         }
     ]
 });

@@ -38,7 +38,7 @@ onUnmounted(() => {
     flex: 1;
     background-color: white;
     width: 50%;
-    height: 94.5vh;
+    height: 94.8vh;
 }
 
 .hero-section {

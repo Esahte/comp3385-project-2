@@ -50,7 +50,7 @@ const handleSearchComplete = (data) => {
                             </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
-                        <a href="#" class="btn btn-primary stretched-link mt-auto">View more details</a>
+                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }" class="btn btn-primary stretched-link mt-auto">View more details</RouterLink>
                     </div>
                 </div>
             </div>
@@ -70,11 +70,11 @@ const handleSearchComplete = (data) => {
 }
 
 .card-title.text-muted {
-    font-size: 1rem; /* Decrease font size */
+    font-size: 1.05rem; /* Decrease font size */
 }
 
 .card-title {
-    font-size: 1rem; /* Decrease font size */
+    font-size: 1.05rem; /* Decrease font size */
 }
 
 .card {

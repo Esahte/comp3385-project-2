@@ -14,12 +14,15 @@ console.log(isLoggedIn.value);
 
 <template>
     <Header :isLoggedIn="isLoggedIn" @isLoggedOut="loggedInHandler"/>
-    <div>
+    <div class="body">
         <RouterView @isLoggedIn="loggedInHandler"/>
     </div>
     <Footer v-if="$route.meta.showFooter" />
 </template>
 
 <style scoped>
-
+.body {
+    height: 94.8vh;
+    padding-bottom: 100px;
+}
 </style>
