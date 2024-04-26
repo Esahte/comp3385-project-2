@@ -29,8 +29,15 @@ const logout = async () => {
 
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container">
-            <a class="navbar-brand" href="/">United Auto Sales</a>
+        <div class="container-fluid mx-3">
+            <a class="navbar-brand" href="/">
+                <div class="brand-container">
+                    <span class="material-icons">
+                        directions_car
+                    </span>
+                    United Auto Sales
+                </div>
+            </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -72,5 +79,16 @@ const logout = async () => {
 </template>
 
 <style scoped>
+.navbar-brand {
+    margin-right: 8rem; /* Adjust this value to your liking */
+}
 
+.brand-container {
+    display: flex;
+    align-items: center;
+}
+
+.material-icons {
+    margin-right: 1rem;
+}
 </style>

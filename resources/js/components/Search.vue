@@ -40,15 +40,17 @@ const onInput = (event) => {
         <div class="card shadow-sm">
             <div class="card-body">
                 <form @submit.prevent="search">
-                    <div class="row g-3">
+                    <div class="row g-3 align-items-end">
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Make" v-model="make" @input="onInput">
+                            <label for="make" class="form-label">Make</label>
+                            <input id="make" type="text" class="form-control" placeholder="Make" v-model="make" @input="onInput">
                             <ul class="list-group" v-show="suggestions.length">
                                 <li class="list-group-item" v-for="suggestion in suggestions" :key="suggestion">{{ suggestion }}</li>
                             </ul>
                         </div>
                         <div class="col">
-                            <input type="text" class="form-control" placeholder="Model" v-model="model" @input="onInput">
+                            <label for="model" class="form-label">Model</label>
+                            <input id="model" type="text" class="form-control" placeholder="Model" v-model="model" @input="onInput">
                             <ul class="list-group" v-show="suggestions.length">
                                 <li class="list-group-item" v-for="suggestion in suggestions" :key="suggestion">{{ suggestion }}</li>
                             </ul>
@@ -65,6 +67,10 @@ const onInput = (event) => {
 
 <style scoped>
 .button {
-    width: 20%;
+    width: 15%;
+}
+
+.card-body {
+    margin: 1rem 2rem 2rem 2rem; /* Adjust this value to your liking */
 }
 </style>

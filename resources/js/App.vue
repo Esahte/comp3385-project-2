@@ -1,30 +1,15 @@
 <script setup>
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
-import {onMounted, onUpdated, ref} from "vue";
+import { ref } from "vue";
 
-const loggedInHandler = () => {
-    console.log("User is logged in")
-}
 const isLoggedIn = ref(false);
 
-console.log(isLoggedIn.value);
-
-onMounted(() => {
-    isAuthenticated();
-    console.log(isLoggedIn.value);
-});
-
-
-onUpdated(() => {
-    isAuthenticated();
-    console.log(isLoggedIn.value);
-});
-
-
-function isAuthenticated() {
+const loggedInHandler = () => {
     isLoggedIn.value = !!localStorage.getItem('token');
 }
+
+console.log(isLoggedIn.value);
 </script>
 
 <template>

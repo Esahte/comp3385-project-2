@@ -61,7 +61,7 @@ const authorize = async () => {
 <style scoped>
 .container {
     max-width: 50rem;
-    height: 94.5vh;
+    height: 70vh;
 }
 </style>
 
