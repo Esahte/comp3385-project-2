@@ -4,6 +4,8 @@ import AboutView from "../views/AboutView.vue";
 import AddCarView from "../views/AddCarView.vue";
 import Explore from "../views/Explore.vue";
 import RegisterView from "../views/RegisterView.vue";
+import LoginView from "../views/LoginView.vue";
+import Header from "../components/Header.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,19 +16,33 @@ const router = createRouter({
         },
         {
             path: '/about',
-            component: AboutView
+            component: AboutView,
+            meta: { showFooter: true }
         },
         {
             path: '/cars/new',
-            component: AddCarView
+            component: AddCarView,
+            meta: { showFooter: true }
         },
         {
             path: '/explore',
-            component: Explore
+            component: Explore,
+            meta: { showFooter: true }
         },
         {
             path: '/register',
-            component: RegisterView
+            component: RegisterView,
+            meta: { showFooter: true }
+        },
+        {
+            path: '/login',
+            component: LoginView,
+            meta: { showFooter: true }
+        },
+        {
+            path: '/logout',
+            component: Header,
+            meta: { showFooter: true }
         }
     ]
 });

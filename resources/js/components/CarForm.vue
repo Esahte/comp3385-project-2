@@ -1,6 +1,8 @@
 <script setup>
 import { useUserStore } from "../store/userStore.js";
+import { useRouter } from "vue-router";
 
+const router = useRouter();
 const saveCar = async () => {
     const formData = new FormData(document.getElementById('carForm'));
 
@@ -8,18 +10,19 @@ const saveCar = async () => {
 
     const response = await fetch('/api/v1/cars', {
         method: 'POST',
-        headers: {'Accept': 'application/json',},
+        headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') },
         body: formData
     });
 
     const data = await response.json();
     console.log(data);
+    await router.push('/explore');
 }
 
 </script>
 
 <template>
-    <div class="container">
+    <div class="container w-50">
         <h1>
             Add New Car
         </h1>

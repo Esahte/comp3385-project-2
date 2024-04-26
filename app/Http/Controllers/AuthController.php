@@ -10,17 +10,43 @@ use Illuminate\Http\Request;
 class AuthController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Get a JWT via given credentials.
+     *
+     * @return JsonResponse
      */
-    public function login()
+    public function login(): JsonResponse
     {
-        //
+        $credentials = request(['email', 'password']);
+        if ( ! $token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+
+        $userId = auth()->user()->id;
+
+        return response()->json([
+            'message' => 'Login Successful!',
+            'token'   => $token,
+            'userId'  => $userId,
+        ]);
+    }
+
+    /**
+     * Log the user out (Invalidate the token)
+     *
+     * @return JsonResponse
+     */
+    public function logout(): JsonResponse
+    {
+        auth()->logout();
+
+        return response()->json(['message' => 'Successfully logged out']);
     }
 
     /**
      * store a newly created resource in storage.
      *
-     * @param AuthRequest $request
+     * @param  AuthRequest  $request
+     *
      * @return JsonResponse
      */
     public function register(AuthRequest $request): JsonResponse
@@ -34,7 +60,7 @@ class AuthController extends Controller
 
         return response()->json([
             'message' => 'User created successfully',
-            'userId' => $user->id,
+            'userId'  => $user->id,
         ]);
     }
 

@@ -1,30 +1,69 @@
 <script setup>
+import {onMounted, ref} from "vue";
+import { useUserStore } from "../store/userStore.js";
 
+const isLoggedIn = ref(false);
+
+onMounted(() => {
+    if (localStorage.getItem('token')) {
+        isLoggedIn.value = true;
+    }
+});
+
+const logout = async () => {
+    try {
+        const response = await fetch('/api/v1/logout', {
+            method: 'POST',
+            headers: {'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Accept': 'application/json'}
+        });
+        const data = await response.json();
+        console.log(data);
+        localStorage.removeItem('token');
+        useUserStore().setUserId(null);
+        isLoggedIn.value = false;
+    } catch (error) {
+        console.error(error);
+    }
+};
 </script>
 
 <template>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="#">COMP3385</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="/">United Auto Sales</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/'}" to="/">Home</RouterLink>
+                    <!-- Items shown regardless of login state -->
+                    <li class="nav-item" v-if="isLoggedIn">
+                        <RouterLink class="nav-link" :class="{ active: $route.path === '/cars/new'}" to="/cars/new">Add
+                            Car
+                        </RouterLink>
                     </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/about'}" to="/about">About</RouterLink>
+                    <li class="nav-item" v-if="isLoggedIn">
+                        <RouterLink class="nav-link" :class="{ active: $route.path === '/explore'}" to="/explore">
+                            Explore
+                        </RouterLink>
                     </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/cars/new'}" to="/cars/new">Add Car</RouterLink>
+                    <li class="nav-item" v-if="isLoggedIn">
+                        <RouterLink class="nav-link" :class="{ active: $route.path === '/profile'}" to="/profile">My
+                            Profile
+                        </RouterLink>
                     </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/explore'}" to="/explore">Explore</RouterLink>
+                </ul>
+                <!-- Right aligned items, shown based on login state -->
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item" v-if="!isLoggedIn">
+                        <RouterLink class="nav-link" to="/register">Register</RouterLink>
                     </li>
-                    <li class="nav-item">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/register'}" to="/register">Register</RouterLink>
+                    <li class="nav-item" v-if="!isLoggedIn">
+                        <RouterLink class="nav-link" to="/login">Login</RouterLink>
+                    </li>
+                    <li class="nav-item" v-if="isLoggedIn">
+                        <button class="nav-link btn btn-link" @click="logout">Logout</button>
                     </li>
                 </ul>
             </div>

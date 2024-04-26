@@ -53,8 +53,8 @@ const onInput = (event) => {
                                 <li class="list-group-item" v-for="suggestion in suggestions" :key="suggestion">{{ suggestion }}</li>
                             </ul>
                         </div>
-                        <div class="col-auto">
-                            <button class="btn btn-success">Search</button>
+                        <div class="col-auto button">
+                            <button class="btn btn-success w-100">Search</button>
                         </div>
                     </div>
                 </form>
@@ -64,5 +64,7 @@ const onInput = (event) => {
 </template>
 
 <style scoped>
-
+.button {
+    width: 20%;
+}
 </style>

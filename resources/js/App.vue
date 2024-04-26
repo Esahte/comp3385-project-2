@@ -5,18 +5,12 @@ import Footer from "./components/Footer.vue";
 
 <template>
     <Header />
-    <div class="container my-5">
+    <div>
         <RouterView />
     </div>
-    <Footer />
+    <Footer v-if="$route.meta.showFooter" />
 </template>
 
 <style scoped>
-body {
-    background-color: #f5f5f5;
-}
 
-.container {
-    max-width: 800px;
-}
 </style>
