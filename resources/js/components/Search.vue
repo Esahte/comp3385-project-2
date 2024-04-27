@@ -8,7 +8,6 @@ const emit = defineEmits(['search-complete']);
 
 const searchMakesAndModels = async (query) => {
     const response = await fetch(`/api/v1/cars/search?query=${query}`, {
-        method: 'GET',
         headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
     });
 
@@ -19,7 +18,6 @@ const searchMakesAndModels = async (query) => {
 
 const search = async () => {
     const response = await fetch(`/api/v1/search?make=${make.value}&model=${model.value}`, {
-        method: 'GET',
         headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
     });
 

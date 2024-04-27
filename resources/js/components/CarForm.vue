@@ -11,7 +11,6 @@ const saveCar = async () => {
     formData.append('user_id', useUserStore().userId);
 
     const response = await fetch('/api/v1/cars', {
-        method: 'POST',
         headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') },
         body: formData
     });

@@ -9,7 +9,6 @@ const cars = ref([]);
 onMounted(async () => {
     try {
         const response = await fetch("/api/v1/cars", {
-            method: "GET",
             headers: {
                 Accept: "application/json",
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
