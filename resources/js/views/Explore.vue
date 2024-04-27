@@ -2,6 +2,7 @@
 import {onMounted, ref} from "vue";
 import Search from "../components/Search.vue";
 import {useUserStore} from "../store/userStore.js";
+import { formatPrice } from "../utils.js";
 
 console.log(useUserStore().userId)
 const cars = ref([]);
@@ -24,10 +25,6 @@ onMounted(async () => {
 
 const handleSearchComplete = (data) => {
     cars.value = data;
-};
-
-const formatPrice = (price) => {
-    return Number(price).toLocaleString();
 };
 </script>
 

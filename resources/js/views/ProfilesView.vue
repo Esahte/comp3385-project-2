@@ -1,6 +1,7 @@
 <script setup>
 import UserInfoCard from "../components/UserInfoCard.vue";
 import { ref, onMounted, defineProps } from "vue";
+import { formatPrice } from "../utils.js";
 
 const props = defineProps({
     user_id: String
@@ -42,7 +43,7 @@ onMounted(async () => {
                             </div>
                             <span class="price-tag">
                 <i class="material-symbols-rounded">sell</i> <!-- Add this line -->
-                ${{ car.price }}
+                ${{ formatPrice(car.price) }}
               </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>

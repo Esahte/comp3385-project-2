@@ -1,5 +1,6 @@
 <script setup>
 import {onMounted, ref} from "vue";
+import { formatPrice } from "../utils.js";
 
 const props = defineProps({
     car_id: String
@@ -76,7 +77,7 @@ const toggleFavorite = async () => {
                                     <span class="detail-title text-muted">Price:</span>
                                 </div>
                                 <div class="col text-start">
-                                    <span class="detail-info">{{ car.price }}</span>
+                                    <span class="detail-info">{{ formatPrice(car.price) }}</span>
                                 </div>
                             </div>
                             <div class="row gx-2 detail mb-3">
