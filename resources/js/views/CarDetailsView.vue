@@ -52,8 +52,8 @@ const toggleFavorite = async () => {
                 </div>
                 <div class="col-md-6 details-content h-100">
                     <div class="card-body d-flex flex-column justify-content-between h-100">
-                        <h5 class="card-title">{{ car.year }} {{ car.make }}</h5>
-                        <h6 class="text-muted">{{ car.model }}</h6>
+                        <h3 class="card-title">{{ car.year }} {{ car.make }}</h3>
+                        <h5 style="color: #6c757d;">{{ car.model }}</h5>
                         <p class="card-text">{{ car.description }}</p>
                         <div class="details-grid">
                             <div class="row gx-2 detail mb-3">

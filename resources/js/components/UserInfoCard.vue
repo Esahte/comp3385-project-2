@@ -33,7 +33,7 @@ onMounted(async () => {
             <div class="col-12 col-md-8 col-lg-9">
                 <div class="card-body">
                     <h2>{{ user.name }}</h2>
-                    <p class="text-muted">@{{ user.username }}</p>
+                    <h4 style="color: #6c757d;">@{{ user.username }}</h4>
                     <p class="text-muted">{{ user.biography }}</p>
                     <div class="user-details mt-3">
                         <div class="row gx-2 detail mb-3">
