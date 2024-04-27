@@ -23,9 +23,9 @@ const search = async () => {
 
     const data = await response.json();
 
-    // Now you can use the data in your component
+
+    emit('search-complete', data.cars);// Now you can use the data in your component
     console.log(data);
-    emit('search-complete', data.cars);
 }
 
 const onInput = (event) => {

@@ -24,6 +24,7 @@ onMounted(async () => {
 });
 
 const handleSearchComplete = (data) => {
+    console.log(data);
     cars.value = data;
 };
 </script>
@@ -32,7 +33,7 @@ const handleSearchComplete = (data) => {
     <div class="container mt-5" style="width: 60%">
         <h1 class="mb-4">Explore</h1>
 
-        <Search @search-completed="handleSearchComplete"/>
+        <Search @search-complete="handleSearchComplete"/>
 
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4" v-for="car in cars" :key="car.id">

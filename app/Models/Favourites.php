@@ -18,4 +18,6 @@ class Favourites extends Model
         'car_id',
         'user_id',
     ];
+
+    public $timestamps = false;
 }

@@ -65,6 +65,7 @@ class CarsController extends Controller
     {
         $query = $request->input('query');
 
+
         $makes = Cars::where('make', 'like', "%{$query}%")->pluck('make');
 
         if ($makes->isEmpty()) {
