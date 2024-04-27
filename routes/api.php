@@ -4,3 +4,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/user', fn(Request $request) => $request->user())->middleware('auth:sanctum');
+
+
+Route::get('/api/v1/users/{user_id}', 'UserController@show');
