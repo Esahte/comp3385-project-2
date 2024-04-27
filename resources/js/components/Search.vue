@@ -54,7 +54,7 @@ const onInput = (event) => {
                             </ul>
                         </div>
                         <div class="col-auto button">
-                            <button class="btn btn-success w-100">Search</button>
+                            <button class="btn btn-success">Search</button>
                         </div>
                     </div>
                 </form>
@@ -64,9 +64,9 @@ const onInput = (event) => {
 </template>
 
 <style scoped>
-.button {
+/*.button {
     width: 15%;
-}
+}*/
 
 .card-body {
     margin: 1rem 2rem 2rem 2rem; /* Adjust this value to your liking */

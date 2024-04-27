@@ -32,9 +32,9 @@ const logout = async () => {
         <div class="container-fluid mx-3">
             <a class="navbar-brand" href="/">
                 <div class="brand-container">
-                    <span class="material-icons">
+                    <i class="material-icons">
                         directions_car
-                    </span>
+                    </i>
                     United Auto Sales
                 </div>
             </a>
