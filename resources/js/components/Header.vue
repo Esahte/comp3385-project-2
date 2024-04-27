@@ -56,8 +56,8 @@ const logout = async () => {
                         </RouterLink>
                     </li>
                     <li class="nav-item" v-if="isLoggedIn">
-                        <RouterLink class="nav-link" :class="{ active: $route.path === '/profile'}" to="/profile">My
-                            Profile
+                        <RouterLink class="nav-link" :class="{ active: $route.path === '/cars'}" :to="{ name: 'ProfilesView', params: { user_id: useUserStore().userId } }">
+                            My Profile
                         </RouterLink>
                     </li>
                 </ul>

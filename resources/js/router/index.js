@@ -7,6 +7,7 @@ import RegisterView from "../views/RegisterView.vue";
 import LoginView from "../views/LoginView.vue";
 import Header from "../components/Header.vue";
 import CarDetailsView from "../views/CarDetailsView.vue";
+import ProfilesView from "../views/ProfilesView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -49,6 +50,13 @@ const router = createRouter({
             path: '/cars/:car_id',
             name: 'CarDetailsView',
             component: CarDetailsView,
+            props: true,
+            meta: {showFooter: true}
+        },
+        {
+            path: '/users/:user_id',
+            name: 'ProfilesView',
+            component: ProfilesView,
             props: true,
             meta: {showFooter: true}
         }

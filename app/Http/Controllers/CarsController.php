@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CarsRequest;
 use App\Models\Cars;
+use App\Models\Favourites;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -45,6 +46,7 @@ class CarsController extends Controller
      * Display the specified resource.
      *
      * @param $car
+     *
      * @return JsonResponse
      */
     public function show($car): JsonResponse
@@ -55,7 +57,8 @@ class CarsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param Request $request
+     * @param  Request  $request
+     *
      * @return JsonResponse
      */
     public function searchMakesAndModels(Request $request): JsonResponse
@@ -66,6 +69,51 @@ class CarsController extends Controller
         $models = Cars::where('model', 'like', "%{$query}%")->pluck('model');
 
         return response()->json(['suggestions' => $makes->concat($models)->unique()]);
+    }
+
+    /**
+     * Add a car to the user's favourites.
+     *
+     * @param $car_id
+     *
+     * @return JsonResponse
+     */
+    public function favourites($car_id): JsonResponse
+    {
+        // Ensure the user is authenticated
+        $user_id = auth()->id();
+        if ( ! $user_id) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+
+        // Create a new favourite
+        Favourites::create([
+            'user_id' => $user_id,
+            'car_id'  => $car_id
+        ]);
+
+        return response()->json(['message' => 'Car added to favourites']);
+    }
+
+    /**
+     * Remove a car from the user's favourites.
+     *
+     * @param $car_id
+     *
+     * @return JsonResponse
+     */
+    public function unFavourite($car_id): JsonResponse
+    {
+        // Ensure the user is authenticated
+        $user_id = auth()->id();
+        if ( ! $user_id) {
+            return response()->json(['message' => 'User not authenticated'], 401);
+        }
+
+        // Delete the favourite
+        Favourites::where('user_id', $user_id)->where('car_id', $car_id)->delete();
+
+        return response()->json(['message' => 'Car removed from favourites']);
     }
 
     /**
