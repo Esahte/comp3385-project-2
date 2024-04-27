@@ -7,7 +7,7 @@ let suggestions = ref([]);
 const emit = defineEmits(['search-complete']);
 
 const searchMakesAndModels = async (query) => {
-    const response = await fetch(`/v1/cars/search?query=${query}`, {
+    const response = await fetch(`/api/v1/cars/search?query=${query}`, {
         method: 'GET',
         headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
     });
@@ -18,7 +18,7 @@ const searchMakesAndModels = async (query) => {
 }
 
 const search = async () => {
-    const response = await fetch(`/v1/search?make=${make.value}&model=${model.value}`, {
+    const response = await fetch(`/api/v1/search?make=${make.value}&model=${model.value}`, {
         method: 'GET',
         headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
     });
@@ -36,7 +36,7 @@ const onInput = (event) => {
 </script>
 
 <template>
-    <div class="container my-4">
+    <div class="my-4">
         <div class="card shadow-sm">
             <div class="card-body">
                 <form @submit.prevent="search">

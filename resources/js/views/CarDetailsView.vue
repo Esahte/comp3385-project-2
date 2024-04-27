@@ -1,6 +1,5 @@
 <script setup>
 import {onMounted, ref} from "vue";
-import {useUserStore} from "@/store/userStore.js";
 
 const props = defineProps({
     car_id: String
@@ -28,7 +27,7 @@ onMounted(async () => {
 const toggleFavorite = async () => {
     isFavorite.value = !isFavorite.value;
     try {
-        const response = await fetch(`/api/v1/cars/${props.car_id}/favorites`, {
+        const response = await fetch(`/api/v1/cars/${props.car_id}/favourites`, {
             method: isFavorite.value ? 'POST' : 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -45,9 +44,11 @@ const toggleFavorite = async () => {
 
 <template>
     <div class="container" style="width: 60%">
-        <div class="card mb-3 mx-auto" style="/*max-width: 60rem;*/ height: 30rem"
-             :style="{backgroundImage: 'url(/storage/' + car.photo + ')', backgroundSize: 'cover'}">
+        <div class="card mb-3 mx-auto" style="/*max-width: 60rem;*/ height: 30rem">
             <div class="row g-0 details-container">
+                <div class="col-md-6">
+                    <img :src="'/storage/' + car.photo" alt="Car Image" class="img-fluid">
+                </div>
                 <div class="col-md-6 details-content h-100">
                     <div class="card-body d-flex flex-column justify-content-between h-100">
                         <h5 class="card-title">{{ car.year }} {{ car.make }}</h5>
@@ -101,6 +102,24 @@ const toggleFavorite = async () => {
 </template>
 
 <style scoped>
+.card {
+    overflow: hidden; /* Add this line */
+}
+
+.img-fluid {
+    max-width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.details-container {
+    height: 100%;
+}
+
+.details-container > div {
+    height: 100%;
+}
+
 .email-owner {
     margin-top: auto;
     width: 25%;
@@ -122,12 +141,6 @@ const toggleFavorite = async () => {
     display: flex;
     flex-direction: column;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-}
-
-.details-container {
-    flex: 1;
-    display: flex;
-    flex-direction: row-reverse;
 }
 
 .details-content {
@@ -176,33 +189,7 @@ const toggleFavorite = async () => {
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2), 0 2px 10px 0 rgba(0, 0, 0, 0.19);
 }
 
-.position-relative {
-    position: relative;
-}
-
-.position-absolute {
-    position: absolute;
-}
-
-.bottom-0 {
-    bottom: 0;
-}
-
-.end-0 {
-    right: 0;
-}
-
-.p-3 {
-    padding: 1rem;
-}
-
-.text-danger {
-    color: #dc3545; /* Bootstrap danger color, or use your own */
-}
-
 .fas.fa-heart {
     font-size: 2rem; /* Adjust the size as needed */
 }
-
-
 </style>

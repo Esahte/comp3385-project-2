@@ -30,7 +30,7 @@ class CarsRequest extends FormRequest
             'transmission' => 'required',
             'car_type' => 'required',
             'price' => 'required',
-            'photo' => 'required|image|max:12288',
+            'photo' => 'required|image',
             'user_id' => 'required',
         ];
     }

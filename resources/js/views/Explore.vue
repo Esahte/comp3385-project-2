@@ -26,6 +26,10 @@ onMounted(async () => {
 const handleSearchComplete = (data) => {
     cars.value = data;
 };
+
+const formatPrice = (price) => {
+    return Number(price).toLocaleString();
+};
 </script>
 
 <template>
@@ -46,7 +50,7 @@ const handleSearchComplete = (data) => {
                             </div>
                             <span class="price-tag">
                                     <i class="material-symbols-rounded">sell</i> <!-- Add this line -->
-                                    ${{ car.price }}
+                                    ${{ formatPrice(car.price) }}
                             </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
@@ -59,13 +63,17 @@ const handleSearchComplete = (data) => {
 </template>
 
 <style scoped>
+.container {
+    padding-bottom: 3rem;
+}
+
 .price-tag {
     display: flex; /* Use Flexbox */
     align-items: center; /* Center items vertically */
     gap: 8px; /* Space between items */
     background-color: #28a745;
     color: white;
-    padding: 10px 5px; /* Increase padding */
+    padding: 5px 5px; /* Increase padding */
     border-radius: 10px; /* Increase border radius */
 }
 

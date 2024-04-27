@@ -68,6 +68,10 @@ onMounted(async () => {
 </template>
 
 <style scoped>
+.img-thumbnail {
+    padding: 0;
+}
+
 .detail {
     display: grid;
     grid-template-columns: 1fr 1fr; /* Two equal columns */

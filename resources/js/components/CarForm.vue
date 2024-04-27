@@ -59,6 +59,8 @@ const saveCar = async () => {
                                 <option>Sedan</option>
                                 <option>Coupe</option>
                                 <option>Convertible</option>
+                                <option>Sports Car</option>
+                                <option>Hatchback</option>
                             </select>
                         </div>
                         <div class="col-md-6">
@@ -85,6 +87,10 @@ const saveCar = async () => {
 </template>
 
 <style scoped>
+.container {
+    padding-bottom: 4rem;
+}
+
 .card {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
