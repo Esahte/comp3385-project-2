@@ -12,11 +12,13 @@ const router = createRouter({
         },
         {
             path: '/about',
-            component: AboutView
+            component: AboutView,
+            meta: { showFooter: true }
         },
         {
             path: '/cars/create',
-            component: AddCarView
+            component: AddCarView,
+            meta: { showFooter: true }
         },
     ]
 });
