@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('transmission');
             $table->string('car_type');
             $table->decimal('price', 10, 2);
-            $table->string('photo');
+            $table->string('photo')->nullable();
             $table->integer('user_id');
             $table->timestamps();
         });

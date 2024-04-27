@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Car;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
@@ -25,6 +25,8 @@ class CarController extends Controller
      */
     public function store(Request $request)
     {
+
+    // dd($request->all());
     // Validate the request data
     $validatedData = $request->validate([
         'description' => 'required|string',
@@ -35,9 +37,11 @@ class CarController extends Controller
         'transmission' => 'required|string',
         'car_type' => 'required|string',
         'price' => 'required|numeric',
-        'photo' => 'required|string',
+        'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:5000',
         'user_id' => 'required|integer',
     ]);
+
+    // dd($validatedData);
 
     // Retrieve validated data
     $description = $validatedData['description'];
