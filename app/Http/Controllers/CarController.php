@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers;
 use App\Models\Car;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class CarController extends Controller
 {
     /**
      * Display a listing of the cars.
      *
-     * @return \Illuminate\Http\Response
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
         $cars = Car::all();
         return response()->json(['message' => 'Cars retrieved successfully', 'data' => $cars]);
@@ -21,9 +23,10 @@ class CarController extends Controller
      * Store a newly created car in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     *
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
 
     // dd($request->all());
@@ -73,7 +76,7 @@ class CarController extends Controller
         $photoFile->storeAs('car_photos', $photoFileName, 'public');
         $car->photo = $photoFileName;
     } else {
-        // If photo is not uploaded
+        // If a photo is not uploaded
         $car->photo = null;
     }
 
@@ -89,9 +92,10 @@ class CarController extends Controller
      * Display the specified car.
      *
      * @param  int  $car_id
-     * @return \Illuminate\Http\Response
+     *
+     * @return JsonResponse
      */
-    public function show($car_id)
+    public function show(int $car_id): JsonResponse
     {
         $car = Car::find($car_id);
         if (!$car) {
@@ -104,9 +108,10 @@ class CarController extends Controller
      * Remove the specified car from storage.
      *
      * @param  int  $car_id
-     * @return \Illuminate\Http\Response
+     *
+     * @return JsonResponse
      */
-    public function destroy($car_id)
+    public function destroy(int $car_id): JsonResponse
     {
         $car = Car::find($car_id);
         if (!$car) {
@@ -114,5 +119,27 @@ class CarController extends Controller
         }
         $car->delete();
         return response()->json(['message' => 'Car deleted successfully']);
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  Request  $request
+     *
+     * @return JsonResponse
+     */
+    public function searchMakesAndModels(Request $request): JsonResponse
+    {
+        $query = $request->input('query');
+
+        $makes = Car::whereRaw('LOWER(make) LIKE ?', [strtolower("%{$query}%")])->pluck('make');
+
+        if ($makes->isEmpty()) {
+            $models = Car::whereRaw('LOWER(model) LIKE ?', [strtolower("%{$query}%")])->pluck('model');
+
+            return response()->json(['suggestions' => $models->unique()]);
+        }
+
+        return response()->json(['suggestions' => $makes->unique()]);
     }
 }
