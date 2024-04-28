@@ -22,6 +22,16 @@ const router = createRouter({
             component: AddCarView,
             meta: { showFooter: true }
         },
+        {
+            path: '/explore',
+            component: Explore,
+            meta: { showFooter: true }
+        },
+        {
+            path: '/login',
+            component: LoginView,
+            meta: { showFooter: true }
+        }
     ]
 });
 
