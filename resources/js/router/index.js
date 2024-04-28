@@ -32,7 +32,7 @@ const router = createRouter({
             path: '/login',
             component: LoginView,
             meta: { showFooter: true }
-        }
+        },
         {
             path: '/login',
             component: LoginView,
