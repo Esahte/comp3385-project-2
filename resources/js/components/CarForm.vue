@@ -127,7 +127,7 @@ export default {
 
 <style scoped>
 .container {
-    padding-bottom: 4rem;
+    padding: 4rem;
 }
 
 .card {

@@ -19,7 +19,7 @@ const router = createRouter({
             meta: { showFooter: true }
         },
         {
-            path: '/cars/create',
+            path: '/cars/new',
             component: AddCarView,
             meta: { showFooter: true }
         },
@@ -41,7 +41,7 @@ const router = createRouter({
         {
             path: '/register',
             component: AddNewUser,
-            
+
         },
     ]
 });

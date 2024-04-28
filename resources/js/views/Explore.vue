@@ -15,7 +15,7 @@ onMounted(async () => {
         });
         const data = await response.json();
         console.log(data);
-        cars.value = data.cars;
+        cars.value = data.data;
     } catch (error) {
         console.error(error);
     }
@@ -49,7 +49,8 @@ const handleSearchComplete = (data) => {
                             </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
-                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }" class="btn btn-primary stretched-link mt-auto">View more details</RouterLink>
+<!--                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }" class="btn btn-primary stretched-link mt-auto">View more details</RouterLink>-->
+                        <a href="/" class="btn btn-primary stretched-link mt-auto">View more details</a>
                     </div>
                 </div>
             </div>
