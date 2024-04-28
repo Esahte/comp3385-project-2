@@ -14,7 +14,7 @@ Route::post('v1/auth/register', [AuthController::class, 'register']);
 Route::post('v1/auth/logout', [AuthController::class, 'logout']);
 
 Route::prefix('v1')->middleware('auth:api')->group(function () {
-    Route::get('/v1/cars/search', [CarController::class, 'searchMakesAndModels']);
+    Route::get('cars/search', [CarController::class, 'searchMakesAndModels']);
     Route::get('cars', [CarController::class, 'index']);
     Route::post('cars', [CarController::class, 'store']);
     Route::get('cars/{car_id}', [CarController::class, 'show']);
@@ -22,5 +22,5 @@ Route::prefix('v1')->middleware('auth:api')->group(function () {
 
     // Removed the login route from here
 
-    Route::get('v1/search', [SearchController::class, 'search']);
+    Route::get('search', [SearchController::class, 'search']);
 });

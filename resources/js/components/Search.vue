@@ -11,7 +11,7 @@ let modelSuggestions = ref([]);
 
 const searchMakesAndModels = async (query, type) => {
     const response = await fetch(`/api/v1/cars/search?query=${query}`, {
-        headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        headers: {'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')}
     });
 
     const data = await response.json();
@@ -25,18 +25,28 @@ const searchMakesAndModels = async (query, type) => {
 
 const search = async () => {
     const response = await fetch(`/api/v1/search?make=${make.value}&model=${model.value}`, {
-        headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') }
+        headers: {'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')}
     });
 
     const data = await response.json();
-
-
     emit('search-complete', data.cars);// Now you can use the data in your component
-    console.log(data);
+
+    make.value = '';
+    model.value = '';
 }
 
 const onInput = (event, type) => {
     searchMakesAndModels(event.target.value, type);
+}
+
+const onBlur = (type) => {
+    setTimeout(() => {
+        if (type === 'make') {
+            makeSuggestions.value = [];
+        } else if (type === 'model') {
+            modelSuggestions.value = [];
+        }
+    }, 200); // Delay of 200ms
 }
 </script>
 
@@ -49,18 +59,24 @@ const onInput = (event, type) => {
                         <div class="col">
                             <div style="position: relative;">
                                 <label for="make" class="form-label">Make</label>
-                                <input id="make" type="text" class="form-control" placeholder="Make" v-model="make" @input="event => onInput(event, 'make')">
+                                <input id="make" type="text" class="form-control" placeholder="Make" v-model="make"
+                                       @input="event => onInput(event, 'make')" @blur="() => onBlur('make')">
                                 <ul class="list-group" v-show="makeSuggestions.length">
-                                    <li class="list-group-item" v-for="suggestion in makeSuggestions" :key="suggestion">{{ suggestion }}</li>
+                                    <li class="list-group-item" v-for="suggestion in makeSuggestions" :key="suggestion"
+                                        @click="make = suggestion">{{ suggestion }}
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col">
                             <div style="position: relative;">
                                 <label for="model" class="form-label">Model</label>
-                                <input id="model" type="text" class="form-control" placeholder="Model" v-model="model" @input="event => onInput(event, 'model')">
+                                <input id="model" type="text" class="form-control" placeholder="Model" v-model="model"
+                                       @input="event => onInput(event, 'model')" @blur="() => onBlur('model')">
                                 <ul class="list-group" v-show="modelSuggestions.length">
-                                    <li class="list-group-item" v-for="suggestion in modelSuggestions" :key="suggestion">{{ suggestion }}</li>
+                                    <li class="list-group-item" v-for="suggestion in modelSuggestions" :key="suggestion"
+                                        @click="model = suggestion">{{ suggestion }}
+                                    </li>
                                 </ul>
                             </div>
                         </div>
