@@ -20,6 +20,12 @@ Route::prefix('v1')->middleware('auth:api')->group(function () {
     Route::get('cars/{car_id}', [CarController::class, 'show']);
     Route::delete('cars/{car_id}', [CarController::class, 'destroy']);
 
+    Route::get('users', [UserController::class, 'index']);
+    Route::get('users/{user_id}', [UserController::class, 'show']);
+    Route::post('users', [UserController::class, 'store']);
+    Route::put('users/{user_id}', [UserController::class, 'update']);
+    Route::delete('users/{user_id}', [UserController::class, 'destroy']);
+
     // Removed the login route from here
 
     Route::get('search', [SearchController::class, 'search']);
