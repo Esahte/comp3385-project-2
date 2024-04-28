@@ -34,21 +34,22 @@ export default {
     },
 
     methods: {
-        fetchUser(user_id) {
-            axios.get('api/users/${user_id}')
-                 .then(response => {
-                    this.user = response.data;
-                 })
-                 .catch(error => {
-                    console.error('Error fetching user:', error);
+        async fetchUser(user_id) {
+            try {
+                const response = await fetch ('api/users/${user_id});
+                if (!response.ok) {
+                    throw new Error('Failed to fetch user information');
+                }
+                const userData = await response.json();
 
-                 });
-
-
+                this.user = userData;
+            } catch (error) {
+                console.error('Error fetching user:', error);
+            }
+          }
         }
     }
 
-}
 </script>
 
 
