@@ -9,22 +9,25 @@ defineProps(['isLoggedIn']);
 
 const emit = defineEmits(['isLoggedOut']);
 
-const logout = async () => {
-    try {
-        const response = await fetch('/api/v1/auth/logout', {
-            method: 'POST',
-            headers: {'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Accept': 'application/json'}
-        });
-        const data = await response.json();
-        console.log(data);
-        localStorage.removeItem('token');
-        useUserStore().setUserId(null);
-        emit('isLoggedOut', true);
-        await router.push('/');
-    } catch (error) {
-        console.error(error);
+const logout = async () =>
+    {
+        try {
+            await fetch('/api/v1/auth/logout', {
+                method: 'POST',
+                headers: {'Authorization': 'Bearer ' + localStorage.getItem('token'), 'Accept': 'application/json'}
+            });
+
+            localStorage.removeItem('token');
+            useUserStore().setUserId(null);
+
+            emit('isLoggedOut', true);
+
+            await router.push('/');
+        } catch (error) {
+            console.error(error);
+        }
     }
-};
+;
 </script>
 
 <template>

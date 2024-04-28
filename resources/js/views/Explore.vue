@@ -1,10 +1,8 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import Search from "../components/Search.vue";
-import {useUserStore} from "../store/userStore.js";
 import { formatPrice } from "../utils.js";
 
-console.log(useUserStore().userId)
 const cars = ref([]);
 
 onMounted(async () => {
@@ -16,7 +14,6 @@ onMounted(async () => {
             },
         });
         const data = await response.json();
-        console.log(data);
         cars.value = data.cars;
     } catch (error) {
         console.error(error);
@@ -24,13 +21,12 @@ onMounted(async () => {
 });
 
 const handleSearchComplete = (data) => {
-    console.log(data);
     cars.value = data;
 };
 </script>
 
 <template>
-    <div class="container mt-5" style="width: 60%">
+    <div class="container py-5" style="width: 60%">
         <h1 class="mb-4">Explore</h1>
 
         <Search @search-complete="handleSearchComplete"/>
@@ -60,10 +56,6 @@ const handleSearchComplete = (data) => {
 </template>
 
 <style scoped>
-.container {
-    padding-bottom: 3rem;
-}
-
 .price-tag {
     display: flex; /* Use Flexbox */
     align-items: center; /* Center items vertically */

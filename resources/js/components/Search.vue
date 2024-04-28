@@ -32,7 +32,6 @@ const search = async () => {
 
 
     emit('search-complete', data.cars);// Now you can use the data in your component
-    console.log(data);
 }
 
 const onInput = (event, type) => {

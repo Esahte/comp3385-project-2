@@ -122,6 +122,29 @@ class CarsController extends Controller
     }
 
     /**
+     * Check if a car is a favourite of the user.
+     *
+     * @param  Request  $request
+     * @param $id
+     *
+     * @return JsonResponse
+     */
+    public function isFavourite(Request $request, $id): JsonResponse
+    {
+        $user = $request->user(); // Get the current user
+
+        // Check if the user has favorite the car
+        $isFavourite = Favourites::where('user_id', $user->id)
+                                ->where('car_id', $id)
+                                ->exists();
+
+        // Return a response
+        return response()->json([
+            'success' => $isFavourite
+        ]);
+    }
+
+    /**
      * Update the specified resource in storage.
      */
     public function update(Request $request, CarsController $cars)

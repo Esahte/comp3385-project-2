@@ -16,7 +16,6 @@ onMounted(async () => {
             }
         });
         const data = await response.json();
-        console.log(data);
         user.value = data.user;
     } catch (error) {
         console.error(error);

@@ -18,8 +18,19 @@ onMounted(async () => {
             }
         });
         const data = await response.json();
-        console.log(data)
         car.value = data.car;
+
+        // Check if the car is already favorite by the user
+        const favResponse = await fetch(`/api/v1/cars/${props.car_id}/favourites`, {
+            headers: {
+                Accept: "application/json",
+                Authorization: `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+        const favData = await favResponse.json();
+        if (favData.success) {
+            isFavorite.value = true;
+        }
     } catch (e) {
         console.error(e);
     }

@@ -14,11 +14,10 @@ onMounted(async () => {
         const response = await fetch(`/api/v1/users/${props.user_id}/favourites`, {
             headers: {
                 Accept: "application/json",
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                Authorization: `Bearer ${localStorage.getItem('token')}`
             },
         });
         const data = await response.json();
-        console.log(data);
         cars.value = data.favourites;
     } catch (error) {
         console.error(error);
@@ -27,7 +26,7 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="container py-4" style="width: 60%">
+    <div class="container py-5" style="width: 60%">
         <UserInfoCard :userId="user_id" />
         <!-- Cars Favorites Section -->
         <h3>Cars Favorites</h3>
@@ -66,19 +65,43 @@ onMounted(async () => {
     margin-bottom: 0.5rem;
 }
 
-.price-tag {
-    display: inline-flex;
-    align-items: center;
-    background-color: #4caf50;
-    color: white;
-    padding: 0.25rem 0.75rem;
-    border-radius: 1rem;
-}
-
 .material-symbols-rounded {
     font-variant: normal;
     font-size: inherit; /* Size it as you like */
 }
 
-/* Further styling as needed... */
+.price-tag {
+    display: flex; /* Use Flexbox */
+    align-items: center; /* Center items vertically */
+    gap: 8px; /* Space between items */
+    background-color: #28a745;
+    color: white;
+    padding: 5px 5px; /* Increase padding */
+    border-radius: 10px; /* Increase border radius */
+}
+
+.card-title.text-muted {
+    font-size: 1.05rem; /* Decrease font size */
+}
+
+.card-title {
+    font-size: 1.05rem; /* Decrease font size */
+}
+
+.card {
+    height: 400px; /* Adjust this value to your liking */
+}
+
+.card-body {
+    position: relative;
+}
+
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
+}
 </style>

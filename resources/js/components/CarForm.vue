@@ -1,23 +1,33 @@
 <script setup>
-import { useUserStore } from "../store/userStore.js";
-import { useRouter } from "vue-router";
+import {useUserStore} from "../store/userStore.js";
+import {useRouter} from "vue-router";
+import {ref} from "vue";
 
 console.log(useUserStore().userId);
 const router = useRouter();
+const message = ref('');
 
 const saveCar = async () => {
-    const formData = new FormData(document.getElementById('carForm'));
+    const form = document.getElementById('carForm');
+    const formData = new FormData(form);
 
     formData.append('user_id', useUserStore().userId);
 
     const response = await fetch('/api/v1/cars', {
-        headers: { 'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token') },
+        method: 'POST',
+        headers: {'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')},
         body: formData
     });
 
     const data = await response.json();
-    console.log(data);
-    await router.push('/explore');
+    message.value = data.message; // Set the message from the response
+
+    // Make the message disappear after 3 seconds
+    setTimeout(() => {
+        message.value = '';
+    }, 3000);
+
+    form.reset();
 }
 
 </script>
@@ -27,6 +37,9 @@ const saveCar = async () => {
         <h1>
             Add New Car
         </h1>
+        <div v-if="message" class="alert alert-success">
+            {{ message }}
+        </div>
         <div class="card">
             <div class="card-body">
                 <form id="carForm" @submit.prevent="saveCar" method="post" action="/api/v1/cars">

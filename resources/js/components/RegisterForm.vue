@@ -3,19 +3,19 @@ import { useRouter } from "vue-router";
 
 const router = useRouter();
 
-const register = async () => {
+const register = async () =>
+{
     const formData = new FormData(document.getElementById('registerForm'));
 
-    const response = await fetch('/api/v1/auth/register', {
+    await fetch('/api/v1/auth/register', {
         method: 'POST',
         headers: { 'Accept': 'application/json' },
         body: formData
     });
 
-    const data = await response.json();
-    console.log(data.message, data.userId);
     await router.push('/login');
 }
+
 
 </script>
 

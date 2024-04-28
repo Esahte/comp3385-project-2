@@ -9,18 +9,19 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/user', fn(Request $request) => $request->user())->middleware('auth:sanctum');
 
-Route::get('/v1/cars/search', [CarsController::class, 'searchMakesAndModels'])/*->middleware('auth:api')*/; // Added of my own accord
-Route::get('/v1/cars', [CarsController::class, 'index'])->middleware('auth:api');
-Route::post('/v1/cars', [CarsController::class, 'store'])/*->middleware('auth:api')*/;
-Route::get('/v1/cars/{id}', [CarsController::class, 'show'])/*->middleware('auth:api')*/;
-Route::post('/v1/cars/{id}/favourites', [CarsController::class, 'favourites'])->middleware('auth:api');
-Route::delete('/v1/cars/{id}/favourites', [CarsController::class, 'unFavourite'])->middleware('auth:api'); // Added of my own accord
+Route::prefix('v1')->middleware('auth:api')->group(function () {
+    Route::get('/cars/search', [CarsController::class, 'searchMakesAndModels']);
+    Route::get('/cars', [CarsController::class, 'index']);
+    Route::post('/cars', [CarsController::class, 'store']);
+    Route::get('/cars/{id}', [CarsController::class, 'show']);
+    Route::get('/cars/{id}/favourites', [CarsController::class, 'isFavourite']);
+    Route::post('/cars/{id}/favourites', [CarsController::class, 'favourites']);
+    Route::delete('/cars/{id}/favourites', [CarsController::class, 'unFavourite']);
+    Route::get('/users/{id}', [UsersController::class, 'details']);
+    Route::get('/users/{id}/favourites', [UsersController::class, 'favourites']);
+    Route::get('/search', [SearchController::class, 'search']);
+});
 
 Route::post('/v1/auth/register', [AuthController::class, 'register']);
 Route::post('/v1/auth/login', [AuthController::class, 'login']);
 Route::post('/v1/auth/logout', [AuthController::class, 'logout']);
-
-Route::get('/v1/users/{id}', [UsersController::class, 'details'])->middleware('auth:api');
-Route::get('/v1/users/{id}/favourites', [UsersController::class, 'favourites'])->middleware('auth:api');
-
-Route::get('v1/search', [SearchController::class, 'search'])/*->middleware('auth:api')*/;
