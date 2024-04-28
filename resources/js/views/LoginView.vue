@@ -1,8 +1,12 @@
 <script setup>
 import {useRouter} from 'vue-router';
-// import { useUserStore } from "../store/userStore.js";
+import { useUserStore } from "../store/userStore.js";
+import { defineEmits } from 'vue';
 
 const router = useRouter();
+
+const emit = defineEmits(['isLoggedIn'])
+
 const authorize = async () => {
     const form_data = new FormData(document.getElementById('loginForm'));
     const headers = {'Accept': 'application/json'};
@@ -16,10 +20,11 @@ const authorize = async () => {
         return;
     }
     const data = await response.json();
-    localStorage.setItem("token", data.token);
-    localStorage.setItem("user_id", data.user_id);
-    console.log(data)
-    // useUserStore().setUserId(data.user_id);
+
+    localStorage.setItem("token", data.access_token);
+    useUserStore().setUserId(data.user_id)
+
+    emit('isLoggedIn', true);
     await router.push('/explore');
 }
 </script>

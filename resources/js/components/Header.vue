@@ -55,11 +55,11 @@ const logout = async () => {
                             Explore
                         </RouterLink>
                     </li>
-                    <li class="nav-item" v-if="isLoggedIn">
+<!--                    <li class="nav-item" v-if="isLoggedIn">
                         <RouterLink class="nav-link" :class="{ active: $route.path === '/cars'}" :to="{ name: 'ProfilesView', params: { user_id: useUserStore().userId } }">
                             My Profile
                         </RouterLink>
-                    </li>
+                    </li>-->
                 </ul>
                 <!-- Right aligned items, shown based on login state -->
                 <ul class="navbar-nav ms-auto">
