@@ -121,7 +121,7 @@ class CarController extends Controller
         return response()->json(['message' => 'Car deleted successfully']);
     }
 
-        /**
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  Request  $request
@@ -132,11 +132,10 @@ class CarController extends Controller
     {
         $query = $request->input('query');
 
-
-        $makes = Car::where('make', 'like', "%{$query}%")->pluck('make');
+        $makes = Car::whereRaw('LOWER(make) LIKE ?', [strtolower("%{$query}%")])->pluck('make');
 
         if ($makes->isEmpty()) {
-            $models = Car::where('model', 'like', "%{$query}%")->pluck('model');
+            $models = Car::whereRaw('LOWER(model) LIKE ?', [strtolower("%{$query}%")])->pluck('model');
 
             return response()->json(['suggestions' => $models->unique()]);
         }
