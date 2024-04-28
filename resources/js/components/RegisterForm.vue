@@ -32,18 +32,19 @@
 </template>
 
 <script setup>
-import { useRouter } from 'vue-router';
-const router=useRouter();
+import {useRouter} from 'vue-router';
+
+const router = useRouter();
 const saveUser = async () => {
-  const form_data = new FormData(document.getElementById('registerForm'));
-  const headers = { 'Accept': 'application/json','Authorization': 'Bearer ' + localStorage.getItem('token') };
-  const response = await fetch('/api/v1/auth/register', {
-    method: 'POST',
-    headers,
-    body: form_data
-  });
-  const data = await response.json();
-  console.log(data);
-  await router.push('/login');
+    const form_data = new FormData(document.getElementById('registerForm'));
+    const headers = {'Accept': 'application/json', 'Authorization': 'Bearer ' + localStorage.getItem('token')};
+    const response = await fetch('/api/v1/auth/register', {
+        method: 'POST',
+        headers,
+        body: form_data
+    });
+    const data = await response.json();
+    console.log(data);
+    await router.push('/login');
 }
 </script>

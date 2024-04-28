@@ -2,19 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use Illuminate\HTTP\Request;
-use App\Models\User;
 
 class AuthController extends Controller
 {
     /**
      * Get a JWT via given credentials.
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function login()
+    public function login(): JsonResponse
     {
         $credentials = request(['email', 'password']);
 
@@ -27,7 +28,7 @@ class AuthController extends Controller
         ]);
     }
 
-    public function register(Request $request)
+    public function register(Request $request): JsonResponse
     {
         // Validate incoming request data
         $validatedData = $request->validate([
@@ -49,7 +50,7 @@ class AuthController extends Controller
             'password' => $validatedData['password'],
             'location' => $validatedData['location'],
             'biography' => $validatedData['biography'],
-            'photo' => $photoPath, 
+            'photo' => $photoPath,
         ]);
         $user->save();
 
@@ -58,9 +59,9 @@ class AuthController extends Controller
     /**
      * Log the user out (Invalidate the token).
      *
-     * @return \Illuminate\Http\JsonResponse
+     * @return JsonResponse
      */
-    public function logout()
+    public function logout(): JsonResponse
     {
         auth()->logout();
         return response()->json(['message' => 'Successfully logged out']);
