@@ -16,3 +16,5 @@ Route::prefix('v1')->group(function () {
 
     Route::get('v1/search', [SearchController::class, 'search']);
 });
+
+Route::post('/v1/auth/login', [AuthController::class, 'login']);
