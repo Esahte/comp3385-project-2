@@ -65,11 +65,10 @@ class CarsController extends Controller
     {
         $query = $request->input('query');
 
-
-        $makes = Cars::where('make', 'like', "%{$query}%")->pluck('make');
+        $makes = Cars::whereRaw('LOWER(make) LIKE ?', [strtolower("%{$query}%")])->pluck('make');
 
         if ($makes->isEmpty()) {
-            $models = Cars::where('model', 'like', "%{$query}%")->pluck('model');
+            $models = Cars::whereRaw('LOWER(model) LIKE ?', [strtolower("%{$query}%")])->pluck('model');
 
             return response()->json(['suggestions' => $models->unique()]);
         }
