@@ -24,6 +24,35 @@ class AuthController extends Controller
             'access_token' => $token,
         ]);
     }
+
+    public function register(Request $request)
+    {
+        // Validate incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users',
+            'password' => 'required|string|min:8',
+            'location' => 'nullable|string|max:255',
+            'biography' => 'nullable|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        // Handle file upload (if a photo is provided)
+        $photoPath = $request->file('photo')->storeAs('photos', $request->file('photo')->getClientOriginalName(), 'public');
+
+        // Create and save the user
+        $user = new User([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'password' => Hash::make($validatedData['password']),
+            'location' => $validatedData['location'],
+            'biography' => $validatedData['biography'],
+            'photo' => $photoPath, 
+        ]);
+        $user->save();
+
+        return response()->json(['message' => 'User registered successfully', 'user' => $user], 201);
+    }
     /**
      * Log the user out (Invalidate the token).
      *
@@ -35,5 +64,7 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 }
+
+
 
 
