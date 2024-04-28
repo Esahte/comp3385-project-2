@@ -50,7 +50,7 @@ const handleSearchComplete = (data) => {
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
 <!--                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }" class="btn btn-primary stretched-link mt-auto">View more details</RouterLink>-->
-                        <a href="/" class="btn btn-primary stretched-link mt-auto">View more details</a>
+                        <a href="#" class="btn btn-primary stretched-link mt-auto">View more details</a>
                     </div>
                 </div>
             </div>
