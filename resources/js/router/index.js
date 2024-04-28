@@ -24,6 +24,16 @@ const router = createRouter({
             meta: { showFooter: true }
         },
         {
+            path: '/explore',
+            component: Explore,
+            meta: { showFooter: true }
+        },
+        {
+            path: '/login',
+            component: LoginView,
+            meta: { showFooter: true }
+        }
+        {
             path: '/login',
             component: LoginView,
             meta: { showFooter: true }

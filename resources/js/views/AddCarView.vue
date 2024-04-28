@@ -3,20 +3,19 @@
 
 <template>
     <div>
-      <CarForm />
+        <CarForm/>
     </div>
-  </template>
-  
-  <script>
-  import CarForm from '@/components/CarForm.vue'; 
-  
-  export default {
+</template>
+
+<script>
+import CarForm from '../components/CarForm.vue';
+
+export default {
     components: {
-      CarForm 
+        CarForm
     }
-  }
-  </script>
-  
-  <style>
-  </style>
-  
+}
+</script>
+
+<style>
+</style>
