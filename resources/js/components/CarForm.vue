@@ -1,56 +1,3 @@
-<template>
-    <div id="app" class="container mt-5">
-    <div class="card">
-        <div class="card-header">
-            <h4>Add New Car</h4>
-        </div>
-        <div class="card-body">
-            <div v-if="success" class="alert alert-success" role="alert">
-                {{ message }}
-            </div>
-            <form @submit.prevent="submitForm" id="car-form" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="description" class="form-label">Description</label>
-                    <input type="text" class="form-control" id="description" v-model="form.description" >
-                </div>
-                <div class="mb-3">
-                    <label for="make" class="form-label">Make</label>
-                    <input type="text" class="form-control" id="make" v-model="form.make" >
-                </div>
-                <div class="mb-3">
-                    <label for="model" class="form-label">Model</label>
-                    <input type="text" class="form-control" id="model" v-model="form.model" >
-                </div>
-                <div class="mb-3">
-                    <label for="colour" class="form-label">Colour</label>
-                    <input type="text" class="form-control" id="colour" v-model="form.colour" >
-                </div>
-                <div class="mb-3">
-                    <label for="year" class="form-label">Year</label>
-                    <input type="text" class="form-control" id="year" v-model="form.year" >
-                </div>
-                <div class="mb-3">
-                    <label for="transmission" class="form-label">Transmission</label>
-                    <input type="text" class="form-control" id="transmission" v-model="form.transmission" >
-                </div>
-                <div class="mb-3">
-                    <label for="car_type" class="form-label">Car Type</label>
-                    <input type="text" class="form-control" id="car_type" v-model="form.car_type" >
-                </div>
-                <div class="mb-3">
-                    <label for="price" class="form-label">Price</label>
-                    <input type="number" class="form-control" id="price" v-model="form.price" >
-                </div>
-                <div class="mb-3">
-                    <label for="photo" class="form-label">Photo</label>
-                    <input type="file" class="form-control" id="photo" accept="image/*">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-</div>
-</template>
 <script>
 export default {
     data() {
@@ -65,53 +12,154 @@ export default {
                 car_type: '',
                 price: '',
                 photo: null,
-                user_id:67,
+                user_id: 67,
             }
         };
     },
     methods: {
-    submitForm() {
-        let formData = new FormData();
+        submitForm() {
+            let formData = new FormData();
 
-        // Append form data to the FormData object
-        for (let key in this.form) {
-            formData.append(key, this.form[key]);
-        }
-
-        // Append photo file to FormData if it's selected
-        let photoInput = document.getElementById('photo');
-        if (photoInput.files.length > 0) {
-            formData.append('photo', photoInput.files[0]);
-        }
-
-        // Log FormData entries using a for...of loop
-        for (const entry of formData.entries()) {
-            console.log("Entry:", entry);
-        }
-
-        fetch("http://localhost/api/v1/cars", {
-            method: 'POST',
-            body: formData, // Pass FormData object as the body
-            headers: {
-                'accept': 'application/json'
-                // 'authorization': `Bearer ${localStorage.getItem('token')}`
+            // Append form data to the FormData object
+            for (let key in this.form) {
+                formData.append(key, this.form[key]);
             }
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data); // Display a success message or handle the response
-            this.success = true;
-            this.message = data.message;
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    },
-}
+
+            // Append photo file to FormData if it's selected
+            let photoInput = document.getElementById('photo');
+            if (photoInput.files.length > 0) {
+                formData.append('photo', photoInput.files[0]);
+            }
+
+            // Log FormData entries using a for...of loop
+            for (const entry of formData.entries()) {
+                console.log("Entry:", entry);
+            }
+
+            fetch("http://localhost/api/v1/cars", {
+                method: 'POST',
+                body: formData, // Pass FormData object as the body
+                headers: {
+                    'accept': 'application/json'
+                    // 'authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Display a success message or handle the response
+                    this.success = true;
+                    this.message = data.message;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        },
+    }
 
 }
 </script>
 
-<style lang="">
-    
+<template>
+    <div class="container w-50">
+        <h1>
+            Add New Car
+        </h1>
+        <div class="card">
+            <div class="card-body">
+                <div v-if="success" class="alert alert-success" role="alert">
+                    {{ message }}
+                </div>
+                <form id="carForm" @submit.prevent="submitForm" method="post" action="/api/v1/cars">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="make" class="form-label">Make</label>
+                            <input v-model="form.make" name="make" type="text" class="form-control" id="make" placeholder="Tesla">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="model" class="form-label">Model</label>
+                            <input v-model="form.model" name="model" type="text" class="form-control" id="model" placeholder="Model S">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="colour" class="form-label">Colour</label>
+                            <input v-model="form.colour" name="color" type="text" class="form-control" id="colour" placeholder="Red">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="year" class="form-label">Year</label>
+                            <input v-model="form.year" name="year" type="text" class="form-control" id="year" placeholder="2018">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="price" class="form-label">Price</label>
+                            <input v-model="form.price" name="price" type="text" class="form-control" id="price" placeholder="62888">
+                        </div>
+                        <div class="col-md-6">
+                            <label for="carType" class="form-label">Car Type</label>
+                            <select v-model="form.car_type" name="car_type" id="carType" class="form-select">
+                                <option selected>SUV</option>
+                                <option>Sedan</option>
+                                <option>Coupe</option>
+                                <option>Convertible</option>
+                                <option>Sports Car</option>
+                                <option>Hatchback</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="transmission" class="form-label">Transmission</label>
+                            <select v-model="form.transmission" name="transmission" id="transmission" class="form-select">
+                                <option selected>Automatic</option>
+                                <option>Manual</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea v-model="form.description" name="description" class="form-control" id="description" rows="3"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="uploadPhoto" class="form-label browse-btn">Upload Photo</label>
+                        <input @change="form.photo" name="photo" class="form-control" type="file" id="uploadPhoto">
+                    </div>
+                    <button type="submit" class="btn btn-primary w-25">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</template>
+
+<style scoped>
+.container {
+    padding-bottom: 4rem;
+}
+
+.card {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    background-color: #198754;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #157347;
+}
+
+.form-label {
+    margin-bottom: 0.5rem;
+}
+
+.form-control, .form-select {
+    margin-bottom: 1rem;
+}
+
+.form-control::file-selector-button {
+    margin-right: 0.5rem;
+}
+
+.browse-btn {
+    font-size: 0.875rem;
+}
+
+.card-body {
+    padding: 2rem;
+}
 </style>

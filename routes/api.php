@@ -1,26 +1,26 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CarController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\CarController;
-
-
-
 
 Route::get('/user', fn(Request $request) => $request->user())->middleware('auth:sanctum');
 
-Route::prefix('v1')->group(function () {
+// Define the login route outside the middleware group
+Route::post('v1/auth/login', [AuthController::class, 'login']);
+Route::post('v1/auth/register', [AuthController::class, 'register']);
+
+Route::prefix('v1')->middleware('auth:api')->group(function () {
     Route::get('/v1/cars/search', [CarController::class, 'searchMakesAndModels']);
     Route::get('cars', [CarController::class, 'index']);
     Route::post('cars', [CarController::class, 'store']);
     Route::get('cars/{car_id}', [CarController::class, 'show']);
     Route::delete('cars/{car_id}', [CarController::class, 'destroy']);
-    Route::post('auth/login', [AuthController::class, 'login']);
-    Route::post('auth/register', [AuthController::class, 'register']);
+
+    // Removed the login route from here
+    Route::post('auth/logout', [AuthController::class, 'logout']);
 
     Route::get('v1/search', [SearchController::class, 'search']);
 });
-
-
