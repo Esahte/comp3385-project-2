@@ -16,8 +16,8 @@ Route::prefix('v1')->group(function () {
     Route::post('cars', [CarController::class, 'store']);
     Route::get('cars/{car_id}', [CarController::class, 'show']);
     Route::delete('cars/{car_id}', [CarController::class, 'destroy']);
-    Route::post('login', [AuthController::class, 'login']);
-    Route::post('register', [AuthController::class, 'register']);
+    Route::post('auth/login', [AuthController::class, 'login']);
+    Route::post('auth/register', [AuthController::class, 'register']);
 
     Route::get('v1/search', [SearchController::class, 'search']);
 });
