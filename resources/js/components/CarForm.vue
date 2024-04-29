@@ -40,8 +40,8 @@ export default {
                 method: 'POST',
                 body: formData, // Pass FormData object as the body
                 headers: {
-                    'accept': 'application/json'
-                    // 'authorization': `Bearer ${localStorage.getItem('token')}`
+                    'accept': 'application/json',
+                    'authorization': `Bearer ${localStorage.getItem('token')}`
                 }
             })
                 .then(response => response.json())

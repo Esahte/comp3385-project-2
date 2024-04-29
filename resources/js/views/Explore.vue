@@ -14,21 +14,19 @@ onMounted(async () => {
             },
         });
         const data = await response.json();
-        console.log(data);
-        cars.value = data.data;
+        cars.value = data.cars;
     } catch (error) {
         console.error(error);
     }
 });
 
 const handleSearchComplete = (data) => {
-    console.log(data);
     cars.value = data;
 };
 </script>
 
 <template>
-    <div class="container mt-5" style="width: 60%">
+    <div class="container py-5" style="width: 60%">
         <h1 class="mb-4">Explore</h1>
 
         <Search @search-complete="handleSearchComplete"/>
@@ -49,8 +47,9 @@ const handleSearchComplete = (data) => {
                             </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
-<!--                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }" class="btn btn-primary stretched-link mt-auto">View more details</RouterLink>-->
-                        <a href="/" class="btn btn-primary stretched-link mt-auto">View more details</a>
+                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }"
+                                    class="btn btn-primary stretched-link mt-auto">View more details
+                        </RouterLink>
                     </div>
                 </div>
             </div>
@@ -59,10 +58,6 @@ const handleSearchComplete = (data) => {
 </template>
 
 <style scoped>
-.container {
-    padding-bottom: 3rem;
-}
-
 .price-tag {
     display: flex; /* Use Flexbox */
     align-items: center; /* Center items vertically */
