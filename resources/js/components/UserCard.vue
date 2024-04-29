@@ -1,20 +1,19 @@
 <template>
-<div class = "user-card">
-   <img :src = "user.photo" alt = "Profile Picture">
+<div class="user-card">
+   <img :src="user.photo" alt="Profile Picture">
 
-   <div class "user-name">
+   <div class="user-name">
        <h2>{{ user.name }}</h2>
        <p>@{{ user.name }}</p>
    </div>
 
-   <div class = "user-biography">
+   <div class="user-biography">
       <p>{{ user.biography }}</p>
    </div>
 
-   <div class = "user-details">
-        <p>Email:: {{ user.email }}</p>
-        <p>Location:: {{ user.location }}</p>
-        
+   <div class="user-details">
+        <p>Email: {{ user.email }}</p>
+        <p>Location: {{ user.location }}</p>
    </div>
 </div>
 </template>
@@ -33,23 +32,24 @@ export default {
         this.fetchUser(this.user_id);
     },
 
+
     methods: {
         async fetchUser(user_id) {
             try {
-                const response = await fetch ('api/users/${user_id});
-                if (!response.ok) {
-                    throw new Error('Failed to fetch user information');
-                }
-                const userData = await response.json();
+                const response = await fetch(`/api/v1/users/${user_id}`, {
+                    headers: {
+                        Accept: "application/json",
+                        'Authorization': 'Bearer ' + localStorage.getItem('user_id')
+                    }
+                });
 
-                this.user = userData;
+                const data = await response.json();
+                this.user = data.user;
+
             } catch (error) {
-                console.error('Error fetching user:', error);
+                console.error(error);
             }
-          }
         }
     }
-
+}
 </script>
-
-
