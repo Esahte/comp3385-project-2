@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import Search from "../components/Search.vue";
-import { formatPrice } from "../utils.js";
+import {formatPrice} from "../utils.js";
 
 const cars = ref([]);
 
@@ -47,9 +47,10 @@ const handleSearchComplete = (data) => {
                             </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
-                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }"
-                                    class="btn btn-primary stretched-link mt-auto">View more details
-                        </RouterLink>
+                        <!--                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }"
+                                                            class="btn btn-primary stretched-link mt-auto">View more details
+                                                </RouterLink>-->
+                        <a href="#" class="btn btn-primary stretched-link mt-auto">View more details </a>
                     </div>
                 </div>
             </div>
