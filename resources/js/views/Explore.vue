@@ -1,8 +1,8 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import Search from "../components/Search.vue";
-import { formatPrice } from "../utils.js";
-import { useRouter } from 'vue-router';
+import {formatPrice} from "../utils.js";
+import {useRouter} from 'vue-router';
 
 const router = useRouter();
 
@@ -10,14 +10,14 @@ const cars = ref([]);
 
 onMounted(async () => {
     try {
-        const response = await fetch("http://localhost/api/v1/cars", {
+        const response = await fetch("/api/v1/cars", {
             headers: {
                 Accept: "application/json",
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             },
         });
         const data = await response.json();
-        cars.value = data.cars;
+        cars.value = data.data;
     } catch (error) {
         console.error(error);
     }
@@ -28,9 +28,9 @@ const handleSearchComplete = (data) => {
 };
 
 const viewCarDetails = (id) => {
-      // Programmatically navigate to CarDetails route with the id
-      router.push(`/cars/${id}`);
-    }
+    // Programmatically navigate to CarDetails route with the id
+    router.push(`/cars/${id}`);
+}
 </script>
 
 <template>
@@ -42,7 +42,7 @@ const viewCarDetails = (id) => {
         <div class="row">
             <div class="col-lg-4 col-md-6 mb-4" v-for="car in cars" :key="car.id">
                 <div class="card">
-                    <img :src="'/storage/car_photos/' + car.photo" class="card-img-top" :alt="car.model">
+                    <img :src="'/storage/' + car.photo" class="card-img-top" :alt="car.model">
                     <div class="card-body d-flex flex-column justify-content-start">
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="d-flex flex-column flex-lg-row">
@@ -55,7 +55,12 @@ const viewCarDetails = (id) => {
                             </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
-                        <button @click="viewCarDetails(car.id)" type="button" class="btn btn-primary stretched-link mt-auto">View more details</button>
+                        <!--                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }"
+                                                            class="btn btn-primary stretched-link mt-auto">View more details
+                                                </RouterLink>-->
+                        <button @click="viewCarDetails(car.id)" type="button"
+                                class="btn btn-primary stretched-link mt-auto">View more details
+                        </button>
                     </div>
                 </div>
             </div>

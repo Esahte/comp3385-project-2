@@ -14,7 +14,7 @@ class Car extends Model
         'description',
         'make',
         'model',
-        'colour',
+        'color',
         'year',
         'transmission',
         'car_type',

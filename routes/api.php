@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/user', fn(Request $request) => $request->user())->middleware('auth:sanctum');
 
 // Define the login route outside the middleware group
-// Define the login route with a name
-Route::post('v1/auth/login', [AuthController::class, 'login'])->name('login');
+Route::post('v1/auth/login', [AuthController::class, 'login']);
 Route::post('v1/auth/register', [AuthController::class, 'register']);
 Route::post('v1/auth/logout', [AuthController::class, 'logout']);
 

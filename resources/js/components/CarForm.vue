@@ -1,5 +1,6 @@
 <script>
-import { useUserStore } from "../store/userStore.js";
+import {useUserStore} from "../store/userStore.js";
+
 export default {
     data() {
         return {
@@ -7,7 +8,7 @@ export default {
                 description: '',
                 make: '',
                 model: '',
-                colour: '',
+                color: '',
                 year: '',
                 transmission: '',
                 car_type: '',
@@ -20,6 +21,25 @@ export default {
         };
     },
     methods: {
+        resetForm() {
+            this.form = {
+                description: '',
+                make: '',
+                model: '',
+                color: '',
+                year: '',
+                transmission: '',
+                car_type: '',
+                price: '',
+                photo: null,
+                user_id: useUserStore().userId,
+            };
+        },
+        hideMessage() {
+            setTimeout(() => {
+                this.success = false;
+            }, 3000); // Hide the message after 3 seconds
+        },
         submitForm() {
             let formData = new FormData();
 
@@ -30,9 +50,7 @@ export default {
 
             // Append photo file to FormData if it's selected
             let photoInput = document.getElementById('photo');
-            console.log(photoInput.files[0]);
-            if (photoInput && photoInput.files.length > 0) {
-                
+            if (photoInput.files.length > 0) {
                 formData.append('photo', photoInput.files[0]);
             }
 
@@ -41,7 +59,7 @@ export default {
                 console.log("Entry:", entry);
             }
 
-            fetch("http://localhost/api/v1/cars", {
+            fetch("/api/v1/cars", {
                 method: 'POST',
                 body: formData, // Pass FormData object as the body
                 headers: {
@@ -54,12 +72,15 @@ export default {
                     console.log(data); // Display a success message or handle the response
                     this.success = true;
                     this.message = data.message;
+                    this.hideMessage();
+                    this.resetForm();
                 })
                 .catch(error => {
                     console.error('Error:', error);
                 });
         },
     }
+
 }
 </script>
 
@@ -77,23 +98,28 @@ export default {
                     <div class="row">
                         <div class="col-md-6">
                             <label for="make" class="form-label">Make</label>
-                            <input v-model="form.make" name="make" type="text" class="form-control" id="make" placeholder="Tesla">
+                            <input v-model="form.make" name="make" type="text" class="form-control" id="make"
+                                   placeholder="Tesla">
                         </div>
                         <div class="col-md-6">
                             <label for="model" class="form-label">Model</label>
-                            <input v-model="form.model" name="model" type="text" class="form-control" id="model" placeholder="Model S">
+                            <input v-model="form.model" name="model" type="text" class="form-control" id="model"
+                                   placeholder="Model S">
                         </div>
                         <div class="col-md-6">
                             <label for="colour" class="form-label">Colour</label>
-                            <input v-model="form.colour" name="color" type="text" class="form-control" id="colour" placeholder="Red">
+                            <input v-model="form.color" name="color" type="text" class="form-control" id="colour"
+                                   placeholder="Red">
                         </div>
                         <div class="col-md-6">
                             <label for="year" class="form-label">Year</label>
-                            <input v-model="form.year" name="year" type="text" class="form-control" id="year" placeholder="2018">
+                            <input v-model="form.year" name="year" type="text" class="form-control" id="year"
+                                   placeholder="2018">
                         </div>
                         <div class="col-md-6">
                             <label for="price" class="form-label">Price</label>
-                            <input v-model="form.price" name="price" type="text" class="form-control" id="price" placeholder="62888">
+                            <input v-model="form.price" name="price" type="text" class="form-control" id="price"
+                                   placeholder="62888">
                         </div>
                         <div class="col-md-6">
                             <label for="carType" class="form-label">Car Type</label>
@@ -108,7 +134,8 @@ export default {
                         </div>
                         <div class="col-md-6">
                             <label for="transmission" class="form-label">Transmission</label>
-                            <select v-model="form.transmission" name="transmission" id="transmission" class="form-select">
+                            <select v-model="form.transmission" name="transmission" id="transmission"
+                                    class="form-select">
                                 <option selected>Automatic</option>
                                 <option>Manual</option>
                             </select>
@@ -116,11 +143,12 @@ export default {
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description</label>
-                        <textarea v-model="form.description" name="description" class="form-control" id="description" rows="3"></textarea>
+                        <textarea v-model="form.description" name="description" class="form-control" id="description"
+                                  rows="3"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="photo" class="form-label browse-btn">Upload Photo</label>
-                        <input type="file" class="form-control" id="photo" accept="image/*">
+                        <input @change="form.photo" name="photo" class="form-control" type="file" id="photo">
                     </div>
                     <button type="submit" class="btn btn-primary w-25">Save</button>
                 </form>
