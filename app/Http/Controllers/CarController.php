@@ -35,7 +35,7 @@ class CarController extends Controller
             'description'  => 'required|string',
             'make'         => 'required|string',
             'model'        => 'required|string',
-            'colour'       => 'required|string',
+            'color'       => 'required|string',
             'year'         => 'required|string',
             'transmission' => 'required|string',
             'car_type'     => 'required|string',
@@ -50,7 +50,7 @@ class CarController extends Controller
         $description  = $validatedData['description'];
         $make         = $validatedData['make'];
         $model        = $validatedData['model'];
-        $colour       = $validatedData['colour'];
+        $colour       = $validatedData['color'];
         $year         = $validatedData['year'];
         $transmission = $validatedData['transmission'];
         $car_type     = $validatedData['car_type'];
@@ -63,7 +63,7 @@ class CarController extends Controller
         $car->description  = $description;
         $car->make         = $make;
         $car->model        = $model;
-        $car->colour       = $colour;
+        $car->color       = $colour;
         $car->year         = $year;
         $car->transmission = $transmission;
         $car->car_type     = $car_type;
@@ -71,10 +71,9 @@ class CarController extends Controller
 
         // Handle photo upload
         if ($request->hasFile('photo')) {
-            $photoFile     = $request->file('photo');
-            $photoFileName = $make.'_'.$model.'_'.time().'.'.$photoFile->getClientOriginalExtension();
-            $photoFile->storeAs('car_photos', $photoFileName, 'public');
-            $car->photo = $photoFileName;
+            $photoFile     = $request->file('photo')->storeAs('car_photos', $request->file('photo')->getClientOriginalName(), 'public');
+//            $photoFile;
+            $car->photo = $photoFile;
         } else {
             // If a photo is not uploaded
             $car->photo = null;
