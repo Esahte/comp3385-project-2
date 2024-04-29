@@ -14,7 +14,7 @@ onMounted(async () => {
             },
         });
         const data = await response.json();
-        cars.value = data.cars;
+        cars.value = data.data;
     } catch (error) {
         console.error(error);
     }
