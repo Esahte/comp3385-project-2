@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     *
+     * @param $user_id
+     *
+     * @return JsonResponse
+     */
     public function show($user_id): JsonResponse
     {
         try {
@@ -22,5 +27,4 @@ class UserController extends Controller
 
         }
     }
-
 }
