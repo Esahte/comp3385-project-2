@@ -1,4 +1,6 @@
 <script>
+import { useUserStore } from "../store/userStore.js";
+
 export default {
     data() {
         return {
@@ -12,8 +14,10 @@ export default {
                 car_type: '',
                 price: '',
                 photo: null,
-                user_id: 67,
-            }
+                user_id: useUserStore().userId,
+            },
+            success: false,
+            message: '',
         };
     },
     methods: {
@@ -36,7 +40,7 @@ export default {
                 console.log("Entry:", entry);
             }
 
-            fetch("http://localhost/api/v1/cars", {
+            fetch("/api/v1/cars", {
                 method: 'POST',
                 body: formData, // Pass FormData object as the body
                 headers: {
@@ -115,8 +119,8 @@ export default {
                         <textarea v-model="form.description" name="description" class="form-control" id="description" rows="3"></textarea>
                     </div>
                     <div class="mb-3">
-                        <label for="uploadPhoto" class="form-label browse-btn">Upload Photo</label>
-                        <input @change="form.photo" name="photo" class="form-control" type="file" id="uploadPhoto">
+                        <label for="photo" class="form-label browse-btn">Upload Photo</label>
+                        <input @change="form.photo" name="photo" class="form-control" type="file" id="photo">
                     </div>
                     <button type="submit" class="btn btn-primary w-25">Save</button>
                 </form>
