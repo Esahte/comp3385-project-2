@@ -6,6 +6,7 @@ import Explore from "../views/Explore.vue";
 import LoginView from '../views/LoginView.vue';
 import AddNewUser from '../views/AddNewUser.vue';
 import CarDetailsView from '../views/CarDetailsView.vue';
+import FavouriteView from "../views/FavouriteView.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,8 +53,8 @@ const router = createRouter({
         },
         {
             path: '/users/:user_id',
-            name:'FavouritesView',
-            component: FavouritesView,
+            name:'FavouriteView',
+            component: FavouriteView,
             meta: {showFooter: true} // Assuming you want this route protected
         }
     ]
