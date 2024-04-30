@@ -48,28 +48,28 @@ import {useRoute} from 'vue-router';
 const car = ref(null);
 const route = useRoute();
 
-onMounted(async () => {
-    const carId = route.params.id;
-    try {
-        const response = await fetch("http://localhost/api/v1/cars/" + carId, {
-            headers: {
-                Accept: 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-        });
-        if (!response.ok) {
-            console.log('Failed to fetch car details')
-            return;
-        }
-        const data = await response.json();
-        car.value = data.car;
-
-        // car.value = data.car;
-        console.log("This is the car:", car.value);
-    } catch (error) {
-        console.error(error.message);
-    }
-});
+// onMounted(async () => {
+//     const carId = route.params.id;
+//     try {
+//         const response = await fetch("http://localhost/api/v1/cars/" + carId, {
+//             headers: {
+//                 Accept: 'application/json',
+//                 'Authorization': 'Bearer ' + localStorage.getItem('token')
+//             },
+//         });
+//         if (!response.ok) {
+//             console.log('Failed to fetch car details')
+//             return;
+//         }
+//         const data = await response.json();
+//         car.value = data.car;
+//
+//         // car.value = data.car;
+//         console.log("This is the car:", car.value);
+//     } catch (error) {
+//         console.error(error.message);
+//     }
+// });
 
 </script>
 
