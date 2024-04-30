@@ -5,6 +5,7 @@ import AddCarView from '../views/AddCarView.vue';
 import Explore from "../views/Explore.vue";
 import LoginView from '../views/LoginView.vue';
 import AddNewUser from '../views/AddNewUser.vue';
+import CarDetailsView from '../views/CarDetailsView.vue';
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -43,6 +44,12 @@ const router = createRouter({
             component: AddNewUser,
 
         },
+        {
+            path: '/cars/:id',
+            name: 'CarDetailsView',
+            component: CarDetailsView,
+            meta: { showFooter: true }
+        }
     ]
 });
 

@@ -2,6 +2,9 @@
 import {onMounted, ref} from "vue";
 import Search from "../components/Search.vue";
 import {formatPrice} from "../utils.js";
+import {useRouter} from 'vue-router';
+
+const router = useRouter();
 
 const cars = ref([]);
 
@@ -23,6 +26,11 @@ onMounted(async () => {
 const handleSearchComplete = (data) => {
     cars.value = data;
 };
+
+const viewCarDetails = (id) => {
+    // Programmatically navigate to CarDetails route with the id
+    router.push(`/cars/${id}`);
+}
 </script>
 
 <template>
@@ -50,7 +58,9 @@ const handleSearchComplete = (data) => {
                         <!--                        <RouterLink :to="{ name: 'CarDetailsView', params: { car_id: car.id } }"
                                                             class="btn btn-primary stretched-link mt-auto">View more details
                                                 </RouterLink>-->
-                        <a href="#" class="btn btn-primary stretched-link mt-auto">View more details </a>
+                        <button @click="viewCarDetails(car.id)" type="button"
+                                class="btn btn-primary stretched-link mt-auto">View more details
+                        </button>
                     </div>
                 </div>
             </div>
