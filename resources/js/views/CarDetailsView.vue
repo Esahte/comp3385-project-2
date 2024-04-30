@@ -9,7 +9,6 @@ const isFavorite = ref(false);
 const carId = route.params.id;
 
 onMounted(async () => {
-
     try {
         const response = await fetch("/api/v1/cars/" + carId, {
             headers: {

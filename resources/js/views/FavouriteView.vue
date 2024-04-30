@@ -1,39 +1,8 @@
-<template>
-    <div class="container py-5">
-        <div v-if="user" class="user-info">
-            <img :src="user.avatar" alt="User Avatar" class="avatar">
-            <h1>{{ user.name }}</h1>
-            <p>{{ user.bio }}</p>
-            <p><strong>Email:</strong> {{ user.email }}</p>
-            <p><strong>Location:</strong> {{ user.location }}</p>
-            <p><strong>Joined:</strong> {{ user.joined }}</p>
-        </div>
-        <h2 class="my-4">Cars Favourited</h2>
-        <div class="row">
-            <div class="col-lg-4 col-md-6 mb-4" v-for="car in favouriteCars" :key="car.id">
-                <div class="card">
-                    <img :src="'/storage/' + car.photo" class="card-img-top" alt="Car Image">
-                    <div class="card-body">
-                        <h5 class="card-title">{{ car.year }} {{ car.make }} - {{ car.model }}</h5>
-                        <p class="card-text">{{ car.model }}</p>
-                        <span class="price-tag">
-              <i class="material-symbols-rounded">sell</i>
-              ${{ formatPrice(car.price) }}
-            </span>
-                        <button @click="checkFavourite(car.id)" class="btn btn-info">Check Favourite</button>
-                        <button @click="toggleFavourite(car.id)" class="btn btn-primary">
-                            {{ car.isFavourite ? 'Remove from Favourites' : 'Add to Favourites' }}
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</template>
-
 <script setup>
 import {useUserStore} from "../store/userStore.js";
-import { ref, onMounted } from 'vue';
+import {onMounted, ref} from 'vue';
+import UserCard from "../components/UserCard.vue";
+import {viewCarDetails} from "../utils.js";
 
 const user = ref(null);
 const favouriteCars = ref([]);
@@ -44,7 +13,12 @@ onMounted(async () => {
 
 async function fetchFavouriteCars() {
     try {
-        const response = await fetch(`/api/user/${useUserStore().userId}/favourites`, { headers: { 'Authorization': 'Bearer ' + localStorage.getItem('token') } });
+        const response = await fetch(`/api/user/${useUserStore().userId}/favourites`, {
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            }
+        });
         if (response.ok) {
             const data = await response.json();
             favouriteCars.value = data.getcar;
@@ -60,27 +34,83 @@ function formatPrice(price) {
 }
 </script>
 
+<template>
+    <div class="container py-5" style="width: 60%">
+        <UserCard :userId="useUserStore().userId" />
+        <!-- Cars Favorites Section -->
+        <h3>Cars Favorites</h3>
+        <div class="row">
+            <div class="col-lg-4 col-md-6 mb-4" v-for="car in favouriteCars" :key="car.id">
+                <div class="card">
+                    <img :src="'/storage/' + car.photo" class="card-img-top" :alt="car.model">
+                    <div class="card-body d-flex flex-column justify-content-start">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="d-flex flex-column flex-lg-row">
+                                <h5 class="card-title text-muted mb-0 me-1">{{ car.year }}</h5>
+                                <h5 class="card-title mb-0 ml-lg-2">{{ car.make }}</h5>
+                            </div>
+                            <span class="price-tag">
+                <i class="material-symbols-rounded">sell</i> <!-- Add this line -->
+                ${{ formatPrice(car.price) }}
+              </span>
+                        </div>
+                        <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
+                        <button @click="viewCarDetails(car.id)" type="button"
+                                class="btn btn-primary stretched-link mt-auto">View more details
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
 <style scoped>
-.avatar {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
+.user-profile h2, .user-profile p {
+    margin-bottom: 0;
 }
+
+.user-profile .user-details p {
+    margin-bottom: 0.5rem;
+}
+
+.material-symbols-rounded {
+    font-variant: normal;
+    font-size: inherit; /* Size it as you like */
+}
+
 .price-tag {
-    display: flex;
-    align-items: center;
-    gap: 8px;
+    display: flex; /* Use Flexbox */
+    align-items: center; /* Center items vertically */
+    gap: 8px; /* Space between items */
     background-color: #28a745;
     color: white;
-    padding: 5px 10px;
-    border-radius: 10px;
+    padding: 5px 5px; /* Increase padding */
+    border-radius: 10px; /* Increase border radius */
 }
+
+.card-title.text-muted {
+    font-size: 1.05rem; /* Decrease font size */
+}
+
+.card-title {
+    font-size: 1.05rem; /* Decrease font size */
+}
+
 .card {
-    height: 400px;
+    height: 400px; /* Adjust this value to your liking */
 }
+
 .card-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+    position: relative;
+}
+
+.stretched-link::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    content: "";
 }
 </style>

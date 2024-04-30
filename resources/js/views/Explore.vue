@@ -1,7 +1,7 @@
 <script setup>
 import {onMounted, ref} from "vue";
 import Search from "../components/Search.vue";
-import {formatPrice} from "../utils.js";
+import {formatPrice, viewCarDetails} from "../utils.js";
 import {useRouter} from 'vue-router';
 
 const router = useRouter();
@@ -26,11 +26,6 @@ onMounted(async () => {
 const handleSearchComplete = (data) => {
     cars.value = data;
 };
-
-const viewCarDetails = (id) => {
-    // Programmatically navigate to CarDetails route with the id
-    router.push(`/cars/${id}`);
-}
 </script>
 
 <template>
