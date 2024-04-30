@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import {createRouter, createWebHistory} from 'vue-router';
 import HomeView from "../views/HomeView.vue";
 import AboutView from "../views/AboutView.vue";
 import AddCarView from '../views/AddCarView.vue';
@@ -17,27 +17,27 @@ const router = createRouter({
         {
             path: '/about',
             component: AboutView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/cars/new',
             component: AddCarView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/explore',
             component: Explore,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/login',
             component: LoginView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/login',
             component: LoginView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
         },
         {
             path: '/register',
@@ -48,7 +48,13 @@ const router = createRouter({
             path: '/cars/:id',
             name: 'CarDetailsView',
             component: CarDetailsView,
-            meta: { showFooter: true }
+            meta: {showFooter: true}
+        },
+        {
+            path: '/users/:user_id',
+            name:'FavouritesView',
+            component: FavouritesView,
+            meta: {showFooter: true} // Assuming you want this route protected
         }
     ]
 });
