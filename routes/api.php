@@ -27,7 +27,15 @@ Route::prefix('v1')->middleware('auth:api')->group(function () {
     Route::put('users/{user_id}', [UserController::class, 'update']);
     Route::delete('users/{user_id}', [UserController::class, 'destroy']);
 
-    // Removed the login route from here
 
+    Route::get('/user/{user_id}/favourites',[FavouriteController::class, 'getUserFavourites']);
+    Route::post('/cars/{car_id}/favourite', [FavouriteController::class, 'addFavourite']);
+    Route::get('/cars/{car_id}/check-favourite', [FavouriteController::class, 'checkFavourite']);
+    Route::delete('/cars/{car_id}/favourite', [FavouriteController::class, 'removeFavourite']);
+
+
+    // Removed the login route from here
     Route::get('search', [SearchController::class, 'search']);
 });
+
+
