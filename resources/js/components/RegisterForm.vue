@@ -75,7 +75,7 @@ const register = async () => {
     });
     const data = await response.json();
     emit('user-created', data.message);
-    console.log(data.message);
+    document.getElementById('registerForm').reset();
     await router.push('/login');
 }
 </script>
