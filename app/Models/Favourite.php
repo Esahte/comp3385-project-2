@@ -8,6 +8,8 @@ class Favourite extends Model
 {
     protected $fillable = ['user_id', 'car_id'];
 
+    public $timestamps = false;
+
     /**
      * Get the user that owns the favorite.
      */
