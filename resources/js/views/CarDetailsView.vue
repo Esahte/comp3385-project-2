@@ -6,9 +6,9 @@ import {formatPrice} from '../utils.js';
 const car = ref(null);
 const route = useRoute();
 const isFavorite = ref(false);
+const carId = route.params.id;
 
 onMounted(async () => {
-    const carId = route.params.id;
     try {
         const response = await fetch("/api/v1/cars/" + carId, {
             headers: {
@@ -22,6 +22,7 @@ onMounted(async () => {
         }
         const data = await response.json();
         car.value = data.data;
+        await checkFavourite();
 
         // car.value = data.car;
         console.log("This is the car:", data.data);
@@ -33,7 +34,41 @@ onMounted(async () => {
 const toggleFavorite = async () => {
     isFavorite.value = !isFavorite.value;
     // Add logic to update the favorite status in the database
-};
+    const method = !isFavorite.value ? 'DELETE' : 'POST';
+    try {
+        await fetch(`/api/v1/cars/${carId}/favourite`, {
+            method: method,
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            },
+        });
+    } catch (error) {
+        console.error('Error toggling favourite status:', error);
+    }
+}
+
+
+async function checkFavourite() {
+    try {
+        const response = await fetch(`/api/v1/cars/${carId}/check-favourite`, {
+            headers: {
+                Accept: 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            },
+        });
+        if (response.ok) {
+            const success = await response.json();
+            if (success.success){
+                isFavorite.value=true;
+            }
+        }
+
+    } catch (error) {
+        console.error('Error checking favourite status:', error);
+    }
+}
+
 </script>
 
 <template>
