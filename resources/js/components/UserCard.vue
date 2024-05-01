@@ -62,7 +62,13 @@ export default {
                                 <span class="detail-title text-muted">Joined:</span>
                             </div>
                             <div class="col text-start">
-                                <span class="detail-value">{{ user.created_at }}</span>
+                                <span class="detail-value">{{
+                                        new Date(user.created_at).toLocaleDateString(undefined, {
+                                            year: 'numeric',
+                                            month: 'long',
+                                            day: 'numeric'
+                                        })
+                                    }}</span>
                             </div>
                         </div>
                     </div>
