@@ -22,9 +22,7 @@ class UserController extends Controller
 
             return response()->json($user);
         } catch (ModelNotFoundException $e) {
-
             return response()->json(['error' => 'User not found'], 404);
-
         }
     }
 }

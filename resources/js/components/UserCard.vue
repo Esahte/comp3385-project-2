@@ -1,5 +1,36 @@
+<script>
+export default {
+    props: {
+        user_id: Number
+    },
+    data() {
+        return {
+            user: null
+        };
+    },
+    mounted() {
+        this.fetchUser(this.user_id);
+    },
+    methods: {
+        async fetchUser(user_id) {
+            try {
+                const response = await fetch(`/api/v1/users/${user_id}`, {
+                    headers: {
+                        Accept: "application/json",
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
+                    }
+                });
+                this.user = await response.json();
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    }
+}
+</script>
+
 <template>
-    <div class="card user-profile shadow mb-5">
+    <div v-if="user" class="card user-profile shadow mb-5">
         <div class="row g-0">
             <div class="user-profile-image">
                 <img :src="'/storage/' + user.photo" alt="User Profile" class="img-thumbnail rounded-circle">
@@ -99,36 +130,4 @@
 }
 </style>
 
-<script>
-export default {
-    props: {
-        user_id: Number
-    },
-    data() {
-        return {
-            user: null
-        };
-    },
-    mounted() {
-        this.fetchUser(this.user_id);
-    },
 
-
-    methods: {
-        async fetchUser(user_id) {
-            try {
-                const response = await fetch(`/api/v1/users/${user_id}`, {
-                    headers: {
-                        Accept: "application/json",
-                        'Authorization': 'Bearer ' + localStorage.getItem('user_id')
-                    }
-                });
-                const data = await response.json();
-                this.user = data.user;
-            } catch (error) {
-                console.error(error);
-            }
-        }
-    }
-}
-</script>

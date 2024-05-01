@@ -1,21 +1,37 @@
 <?php
 
+namespace App\Http\Controllers;
+
 use App\Models\Favourite;
 use App\Models\Car;
+use Illuminate\Http\JsonResponse;
 
 class FavouriteController extends Controller
 {
-    public function getUserFavourites($user_id)
+    /**
+     * Get all the cars that a user has favourited
+     *
+     * @param $user_id
+     * @return JsonResponse
+     */
+    public function getUserFavourites($user_id): JsonResponse
     {
         $favourites = Favourite::where('user_id', $user_id)->pluck('car_id');
 
         $cars = Car::whereIn('id', $favourites)->get();
 
-        return response()->json(['getcar' => $cars]);
+        return response()->json(['getCar' => $cars]);
     }
 
-    public function addFavourite($car_id) {
-        $user_id = Auth::id();
+    /**
+     * Add a car to the user's favourites
+     *
+     * @param $car_id
+     * @return JsonResponse
+     */
+    public function addFavourite($car_id): JsonResponse
+    {
+        $user_id = auth()->id();
 
         if (!$user_id) {
             return response()->json(['message' => 'User not authenticated'], 401);
@@ -35,17 +51,31 @@ class FavouriteController extends Controller
         return response()->json(['message' => 'Car added to favourites']);
     }
 
-    public function checkFavourite($user_id, $car_id)
+    /**
+     * Check if a car is in the user's favourites
+     *
+     * @param $user_id
+     * @param $car_id
+     * @return JsonResponse
+     */
+    public function checkFavourite($car_id): JsonResponse
     {
-        $existingFavourite = Favourite::where('user_id', $user_id)->where('car_id', $car_id)->exist();
+        $existingFavourite = Favourite::where('user_id', auth()->id())->where('car_id', $car_id)->exists();
 
         return response()->json(['success' => $existingFavourite],);
 
     }
 
-    public function removeFavourite($user_id, $car_id)
+    /**
+     * Remove a car from the user's favourites
+     *
+     * @param $user_id
+     * @param $car_id
+     * @return JsonResponse
+     */
+    public function removeFavourite($car_id): JsonResponse
     {
-        $currentfavourite = Favourite::where('user_id', $user_id)->where('car_id', $car_id)->delete();
+        Favourite::where('user_id', auth()->id())->where('car_id', $car_id)->delete();
 
         return response()->json(['success' => 'Favorite removed successfully']);
     }

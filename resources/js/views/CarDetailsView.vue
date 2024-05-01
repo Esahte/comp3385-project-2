@@ -40,7 +40,7 @@ const toggleFavorite = async () => {
             method: method,
             headers: {
                 Accept: 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             },
         });
     } catch (error) {
@@ -51,10 +51,10 @@ const toggleFavorite = async () => {
 
 async function checkFavourite() {
     try {
-        const response = await fetch(`/api/cars/${carId}/check-favourite`, {
+        const response = await fetch(`/api/v1/cars/${carId}/check-favourite`, {
             headers: {
                 Accept: 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
+                Authorization: 'Bearer ' + localStorage.getItem('token')
             },
         });
         if (response.ok) {

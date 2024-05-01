@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\FavouriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +29,10 @@ Route::prefix('v1')->middleware('auth:api')->group(function () {
     Route::delete('users/{user_id}', [UserController::class, 'destroy']);
 
 
-    Route::get('/user/{user_id}/favourites',[FavouriteController::class, 'getUserFavourites']);
-    Route::post('/cars/{car_id}/favourite', [FavouriteController::class, 'addFavourite']);
-    Route::get('/cars/{car_id}/check-favourite', [FavouriteController::class, 'checkFavourite']);
-    Route::delete('/cars/{car_id}/favourite', [FavouriteController::class, 'removeFavourite']);
+    Route::get('user/{user_id}/favourites',[FavouriteController::class, 'getUserFavourites']);
+    Route::post('cars/{car_id}/favourite', [FavouriteController::class, 'addFavourite']);
+    Route::get('cars/{car_id}/check-favourite', [FavouriteController::class, 'checkFavourite']);
+    Route::delete('cars/{car_id}/favourite', [FavouriteController::class, 'removeFavourite']);
 
 
     // Removed the login route from here

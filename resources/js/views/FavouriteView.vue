@@ -2,8 +2,10 @@
 import {useUserStore} from "../store/userStore.js";
 import {onMounted, ref} from 'vue';
 import UserCard from "../components/UserCard.vue";
-import {viewCarDetails} from "../utils.js";
+import {useRouter} from 'vue-router';
+import {formatPrice} from '../utils.js';
 
+const router = useRouter();
 const user = ref(null);
 const favouriteCars = ref([]);
 
@@ -13,7 +15,7 @@ onMounted(async () => {
 
 async function fetchFavouriteCars() {
     try {
-        const response = await fetch(`/api/user/${useUserStore().userId}/favourites`, {
+        const response = await fetch(`/api/v1/user/${useUserStore().userId}/favourites`, {
             headers: {
                 Accept: 'application/json',
                 Authorization: 'Bearer ' + localStorage.getItem('token')
@@ -21,22 +23,22 @@ async function fetchFavouriteCars() {
         });
         if (response.ok) {
             const data = await response.json();
-            favouriteCars.value = data.getcar;
+            favouriteCars.value = data.getCar;
         }
     } catch (error) {
         console.error('Error fetching favourite cars:', error);
     }
 }
 
-
-function formatPrice(price) {
-    return price.toLocaleString();
+const viewCarDetail = (id) => {
+    // Programmatically navigate to CarDetails route with the id
+    router.push(`/cars/${id}`);
 }
 </script>
 
 <template>
-    <div class="container py-5" style="width: 60%">
-        <UserCard :userId="useUserStore().userId" />
+    <div v-if="favouriteCars" class="container py-5" style="width: 60%">
+        <UserCard :user_id="useUserStore().userId" />
         <!-- Cars Favorites Section -->
         <h3>Cars Favorites</h3>
         <div class="row">
@@ -55,7 +57,7 @@ function formatPrice(price) {
               </span>
                         </div>
                         <p class="card-text text-muted align-self-start mt-1">{{ car.model }}</p>
-                        <button @click="viewCarDetails(car.id)" type="button"
+                        <button @click="viewCarDetail(car.id)" type="button"
                                 class="btn btn-primary stretched-link mt-auto">View more details
                         </button>
                     </div>
